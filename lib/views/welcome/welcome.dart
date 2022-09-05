@@ -23,12 +23,14 @@ class WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: null,
         toolbarTextStyle: const TextStyle(color: Color(0xff000000)),
         backgroundColor: const Color(0xffffffff),
         // title: SizedBox(
         //   width: 100,
         //   child: Image.asset("logo/fxvLogo.png"),
         // ),
+        automaticallyImplyLeading: false,
         actions: const [Actions()],
       ),
       body: Container(
@@ -44,19 +46,21 @@ class WelcomePageState extends State<WelcomePage> {
         child: Expanded(
           // child: WelcomeCard(),
           child: Navigator(
+            reportsRouteUpdateToEngine: true,
             onGenerateRoute: ((settings) {
-              Widget page = WelcomeCard();
+              Widget page = const WelcomeCard();
               switch (settings.name) {
                 case '/':
-                  page = WelcomeCard();
+                  page = const WelcomeCard();
                   break;
                 case '/sign-up':
-                  page = SignUp();
+                  page = const SignUp();
                   break;
               }
 
               return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => page,
+                settings: settings,
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
                   const begin = Offset(0.0, 1.0);
@@ -83,12 +87,11 @@ class Actions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Flex(
       direction: Axis.horizontal,
       children: <Widget>[
         Padding(
-            padding: EdgeInsets.only(right: 950.0),
+            padding: const EdgeInsets.only(right: 950.0),
             child: IconButton(
               iconSize: 100,
               onPressed: () => Navigator.pushNamed(context, '/'),
@@ -99,19 +102,19 @@ class Actions extends StatelessWidget {
                 ),
               ),
             )),
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(right: 20.0),
           child: Text('About'),
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(right: 20.0),
           child: Text('Services'),
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(right: 20.0),
           child: Text('Phylosophy'),
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(right: 20.0),
           child: Text(
             'Privacy',

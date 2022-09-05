@@ -13,7 +13,7 @@ class SignUp extends StatelessWidget {
             elevation: 15,
             child: Container(
                 padding: const EdgeInsets.fromLTRB(64, 80, 64, 80),
-                child: Form()))
+                child: const Form()))
       ],
     );
   }
@@ -24,7 +24,6 @@ class Form extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,

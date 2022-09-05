@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fxv_ide/views/welcome/signup.dart';
-import 'package:fxv_ide/views/welcome/welcome_card.dart';
+// import 'package:fxv_ide/views/welcome/signup.dart';
+// import 'package:fxv_ide/views/welcome/signin.dart';
+// import 'package:fxv_ide/views/welcome/welcome_card.dart';
 import 'package:fxv_ide/views/welcome/welcome.dart';
+import './theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,11 +19,18 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: const Color(FxvTheme.fxvColor),
+        fontFamily: 'Heebo',
+        primarySwatch: FxvTheme.blue,
+        textTheme: FxvTheme.fxvTexts,
       ),
-      home: Welcome(),
+      //home: const Welcome(),
       initialRoute: '/',
-      routes: {'/sign-up': (context) => SignUp()},
+      routes: {
+        '/': (context) => const Welcome(),
+        'sign-in': (context) => const Welcome(),
+        '/sign-up': (context) => const Welcome()
+      },
     );
   }
 }

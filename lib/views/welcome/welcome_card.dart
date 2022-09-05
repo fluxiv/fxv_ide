@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class WelcomeCard extends StatelessWidget {
+  const WelcomeCard({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -57,12 +59,12 @@ class WelcomeCard extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () =>
                             Navigator.pushNamed(context, '/sign-up'),
-                        child: const Text('Sign Up'),
                         style: ElevatedButton.styleFrom(
                           primary: const Color(0xff30AAD8),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 50, vertical: 20),
                         ),
+                        child: const Text('Sign Up'),
                       ),
                     ],
                   ),
