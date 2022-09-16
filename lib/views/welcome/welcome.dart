@@ -43,7 +43,7 @@ class WelcomePageState extends State<WelcomePage> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Expanded(
+        child: Container(
           // child: WelcomeCard(),
           child: Navigator(
             reportsRouteUpdateToEngine: true,

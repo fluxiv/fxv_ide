@@ -1,7 +1,9 @@
-import 'dart:convert';
+//import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:fxv_ide/modals/country.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:intl/intl.dart';
+// import 'package:fxv_ide/modals/country.dart';
 // import 'package:http/http.dart' as http;
 
 const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
@@ -38,7 +40,7 @@ class SignUp extends StatelessWidget {
               // child: SingleChildScrollView(
               // child: Container(
               // padding: const EdgeInsets.fromLTRB(45, 25, 45, 10),
-              child: const Form()),
+              child: const MyForm()),
           // ),
           // ),
         )
@@ -47,8 +49,20 @@ class SignUp extends StatelessWidget {
   }
 }
 
-class Form extends StatelessWidget {
-  const Form({Key? key}) : super(key: key);
+class MyForm extends StatefulWidget {
+  const MyForm({super.key});
+  @override
+  MyFormState createState(){
+    return MyFormState();
+  }
+}
+
+
+class MyFormState extends State<MyForm>{
+
+
+  final _formKey = GlobalKey<FormBuilderState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,51 +100,57 @@ class Form extends StatelessWidget {
           width: 365,
           child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+            child: FormBuilder(
+            key: _formKey,
             child: Column(
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Row(
-                    children: <Widget>[
+                      children: <Widget>[
                       SizedBox(
-                        width: 167.0,
-                        child: TextFormField(
-                          // ignore: unnecessary_const
-                          decoration: const InputDecoration(
-                              hintText: "Name",
-                              border: OutlineInputBorder(),
-                              isDense: true,
-                              contentPadding: EdgeInsets.all(15)),
+                      width: 167.0,
+                      child: FormBuilderTextField(
+                        name: 'firstName',
+                      // ignore: unnecessary_const
+                      decoration: const InputDecoration(
+                      hintText: "Name",
+                      border: OutlineInputBorder(),
+                      isDense: true,
+                      contentPadding: EdgeInsets.all(15)),
 
-                          style: const TextStyle(fontSize: 15.0),
-                        ),
+                      style: const TextStyle(fontSize: 15.0),
+                      ),
                       ),
                       const SizedBox(
-                        width: 16,
+                      width: 16,
                       ),
                       SizedBox(
-                        width: 167.0,
-                        child: TextFormField(
-                          // ignore: unnecessary_const
-                          decoration: const InputDecoration(
-                              hintText: "Last Name",
-                              border: OutlineInputBorder(),
-                              isDense: true,
-                              contentPadding: EdgeInsets.all(15)),
+                      width: 167.0,
+                      child: FormBuilderTextField(
+                        name: 'lastName',
+                      // ignore: unnecessary_const
+                      decoration: const InputDecoration(
+                      hintText: "Last Name",
+                      border: OutlineInputBorder(),
+                      isDense: true,
+                      contentPadding: EdgeInsets.all(15)),
 
-                          style: const TextStyle(fontSize: 15.0),
-                        ),
+                      style: const TextStyle(fontSize: 15.0),
                       ),
-                    ],
-                  ),
-                ),
+                      ),
+                      ],
+                      ),
+                      ),
+
                 Column(
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(bottom: 16),
                       child: SizedBox(
                         width: 350.0,
-                        child: TextFormField(
+                        child: FormBuilderTextField(
+                          name: 'email',
                           // ignore: unnecessary_const
                           decoration: const InputDecoration(
                               hintText: "Email",
@@ -146,7 +166,12 @@ class Form extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 16),
                       child: SizedBox(
                         width: 350.0,
-                        child: TextFormField(
+                        child: FormBuilderDateTimePicker(
+                          format: DateFormat("dd-MM-yyyy a"),
+                          inputType: InputType.date,
+                          enableInteractiveSelection: false,
+                          initialEntryMode: DatePickerEntryMode.input,
+                          name: 'birthday',
                           // ignore: unnecessary_const
                           decoration: const InputDecoration(
                               hintText: "Birthday",
@@ -162,7 +187,9 @@ class Form extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 16),
                       child: SizedBox(
                         width: 350.0,
-                        child: TextFormField(
+                        child: FormBuilderTextField(
+                          name: 'password',
+                          obscureText: true,
                           // ignore: unnecessary_const
                           decoration: const InputDecoration(
                               hintText: "Password",
@@ -178,7 +205,9 @@ class Form extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 16),
                       child: SizedBox(
                         width: 350.0,
-                        child: TextFormField(
+                        child: FormBuilderTextField(
+                          obscureText: true,
+                          name: 'repPassword',
                           // ignore: unnecessary_const
                           decoration: const InputDecoration(
                               hintText: "Repeat Password",
@@ -194,7 +223,8 @@ class Form extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 16),
                       child: SizedBox(
                         width: 350.0,
-                        child: DropdownButtonFormField<String>(
+                        child: FormBuilderDropdown <String>(
+                          name: 'country',
                           decoration: const InputDecoration(
                             hintText: 'Country',
                             border: OutlineInputBorder(),
@@ -202,7 +232,7 @@ class Form extends StatelessWidget {
                             contentPadding: EdgeInsets.all(15),
                           ),
                           items: list.map<DropdownMenuItem<String>>(
-                            (String value) {
+                                (String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(value),
@@ -218,7 +248,10 @@ class Form extends StatelessWidget {
                       child: SizedBox(
                         width: 350.0,
                         child: ElevatedButton(
-                          onPressed: () => {},
+                          onPressed: () => {
+                            _formKey.currentState?.save(),
+                            print(_formKey.currentState?.value)
+                          },
                           // ignore: sort_child_properties_last
                           child: const Text(
                             'Sign Up',
@@ -238,7 +271,7 @@ class Form extends StatelessWidget {
             ),
           ),
         )
-      ],
+        )],
     );
   }
 }
