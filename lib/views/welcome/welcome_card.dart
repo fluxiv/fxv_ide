@@ -43,11 +43,14 @@ class WelcomeCard extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.only(right: 24),
                         child: ElevatedButton(
-                          onPressed: () => {},
+                          onPressed: () =>
+                              Navigator.pushNamed(context, '/sign-in'),
                           // ignore: sort_child_properties_last
                           child: const Text(
                             'Sign In',
-                            style: TextStyle(color: Color(0xff30AAD8)),
+                            style: TextStyle(
+                              color: Color(0xff30AAD8),
+                            ),
                           ),
                           style: ElevatedButton.styleFrom(
                             primary: const Color(0xffdbdbdb),

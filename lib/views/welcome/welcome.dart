@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fxv_ide/views/welcome/signup.dart';
+import 'package:fxv_ide/views/welcome/signin.dart';
 import 'package:fxv_ide/views/welcome/welcome_card.dart';
 
 class Welcome extends StatelessWidget {
@@ -55,6 +56,9 @@ class WelcomePageState extends State<WelcomePage> {
                   break;
                 case '/sign-up':
                   page = const SignUp();
+                  break;
+                case '/sign-in':
+                  page = const SignIn();
                   break;
               }
 
