@@ -91,6 +91,13 @@ class MyFormState extends State<MyForm> {
                           width: 167.0,
                           child: FormBuilderTextField(
                             name: 'firstName',
+                            validator: (value) {
+                              if(value == null || value.isEmpty || value.length < 3){
+                                return 'Enter a name';
+                              } else {
+                                return null;
+                              }
+                            },
                             decoration: const InputDecoration(
                                 hintText: "Name",
                                 border: OutlineInputBorder(),
@@ -106,6 +113,13 @@ class MyFormState extends State<MyForm> {
                           width: 167.0,
                           child: FormBuilderTextField(
                             name: 'lastName',
+                            validator: (value) {
+                              if(value == null || value.isEmpty || value.length < 3){
+                                return 'Enter a name';
+                              } else {
+                                return null;
+                              }
+                            },
                             decoration: const InputDecoration(
                                 hintText: "Last Name",
                                 border: OutlineInputBorder(),
@@ -127,6 +141,8 @@ class MyFormState extends State<MyForm> {
                             firstname: 'email',
                             hintText: 'Email',
                             obscureText: false,
+                            validator: 'email',
+
                           ),
                         ),
                       ),
@@ -157,6 +173,7 @@ class MyFormState extends State<MyForm> {
                             firstname: 'password',
                             hintText: 'Password',
                             obscureText: true,
+                            validator: 'password',
                           ),
                         ),
                       ),
@@ -166,8 +183,10 @@ class MyFormState extends State<MyForm> {
                           width: 350.0,
                           child: CustomFormTextField(
                             firstname: 'repPassword',
-                            hintText: 'Repeat Passaword',
+                            hintText: 'Repeat Password',
                             obscureText: true,
+
+
                           ),
                         ),
                       ),
