@@ -40,7 +40,7 @@ class WelcomePageState extends State<WelcomePage> {
         padding: const EdgeInsets.fromLTRB(80, 20, 80, 20),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("background/background.png"),
+            image: AssetImage("assets/background/background.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -102,7 +102,7 @@ class Actions extends StatelessWidget {
               icon: SizedBox(
                 width: 100,
                 child: Image.asset(
-                  "logo/fxvLogo.png",
+                  "assets/logo/fxvLogo.png",
                 ),
               ),
             )),
