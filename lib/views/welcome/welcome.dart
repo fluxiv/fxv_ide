@@ -27,10 +27,16 @@ class WelcomePageState extends State<WelcomePage> {
         leading: null,
         toolbarTextStyle: const TextStyle(color: Color(0xff000000)),
         backgroundColor: const Color(0xffffffff),
-        // title: SizedBox(
-        //   width: 100,
-        //   child: Image.asset("logo/fxvLogo.png"),
-        // ),
+        title: IconButton(
+          iconSize: 100,
+          onPressed: () => Navigator.pushNamed(context, '/'),
+          icon: SizedBox(
+            width: 100,
+            child: Image.asset(
+              "assets/logo/fxvLogo.png",
+            ),
+          ),
+        ),
         automaticallyImplyLeading: false,
         actions: const [Actions()],
       ),
@@ -93,32 +99,20 @@ class Actions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Flex(
       direction: Axis.horizontal,
-      children: <Widget>[
+      children: const <Widget>[
         Padding(
-            padding: const EdgeInsets.only(right: 950.0),
-            child: IconButton(
-              iconSize: 100,
-              onPressed: () => Navigator.pushNamed(context, '/'),
-              icon: SizedBox(
-                width: 100,
-                child: Image.asset(
-                  "assets/logo/fxvLogo.png",
-                ),
-              ),
-            )),
-        const Padding(
           padding: EdgeInsets.only(right: 20.0),
           child: Text('About'),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(right: 20.0),
           child: Text('Services'),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(right: 20.0),
           child: Text('Phylosophy'),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(right: 20.0),
           child: Text(
             'Privacy',
