@@ -3,13 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 //import 'package:intl/intl.dart';
-import 'package:fxv_ide/components/form_builder_text_field.dart';
 import 'package:fxv_ide/components/form_dynamic_fields.dart';
 // import 'package:fxv_ide/modals/country.dart';
 // import 'package:http/http.dart' as http;
 
 const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
-
 class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -74,13 +72,22 @@ class MyForm extends StatefulWidget {
     return MyFormState();
   }
 }
-
+// class FormStateModel{
+//   String value;
+//   bool errors;
+// }
 class MyFormState extends State<MyForm> {
-  final _formKey = GlobalKey<FormBuilderState>();
-  bool formHasErrors = false;
-  void setFormState(myBool) {
+  final _formKey = GlobalKey<FormState>();
+  bool changeFormState = false;
+  var formValues = {};
+  setFormState(bool myBool,String fieldName, myValue) {
     setState(() {
-      formHasErrors = myBool;
+      changeFormState = myBool;
+      if(myBool){
+        formValues[fieldName] = {'value':myValue,'errors': true};
+      } else{
+        formValues[fieldName] = {'value':myValue,'errors': false};
+      }
     });
   }
   @override
@@ -96,7 +103,7 @@ class MyFormState extends State<MyForm> {
                           child:  FormDynamicFields(
                             fieldName: 'Name',
                             fieldType: 'text',
-                            formHasErrors: setFormState,
+                            changeFormState: setFormState,
                           ),
                         ),
                   ),
@@ -107,7 +114,7 @@ class MyFormState extends State<MyForm> {
                           child: FormDynamicFields(
                             fieldName: 'Email',
                             fieldType: 'email',
-                            formHasErrors: setFormState,
+                            changeFormState: setFormState,
                           )
                         ),
                       ),
@@ -133,56 +140,58 @@ class MyFormState extends State<MyForm> {
                           child: FormDynamicFields(
                             fieldName: 'Password',
                             fieldType: 'password',
-                            formHasErrors: setFormState,
+                            changeFormState: setFormState,
                             showPassArgs: true,
                           )
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 16),
-                        child: SizedBox(
-                          width: 350.0,
-                          child: CustomFormTextField(
-                            firstname: 'repPassword',
-                            hintText: 'Repeat Password',
-                            obscureText: true,
-
-
-                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 16),
                         child: SizedBox(
                           width: 350.0,
-                          child: FormBuilderDropdown<String>(
-                            name: 'country',
-                            decoration: const InputDecoration(
-                              hintText: 'Country',
-                              border: OutlineInputBorder(),
-                              isDense: true,
-                              contentPadding: EdgeInsets.all(15),
-                            ),
-                            items: list.map<DropdownMenuItem<String>>(
-                              (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              },
-                            ).toList(),
-                            onChanged: ((value) => {}),
+                          child: FormDynamicFields(
+                            fieldName: 'Repeat password',
+                            fieldType: 'password',
+                            changeFormState: setFormState,
+                            showPassArgs: false,
+                            formRef: formValues,
+                            fieldRef: 'Password'
                           ),
                         ),
                       ),
+
+                      // Padding(
+                      //   padding: const EdgeInsets.only(bottom: 16),
+                      //   child: SizedBox(
+                      //     width: 350.0,
+                      //     child: FormBuilderDropdown<String>(
+                      //       name: 'country',
+                      //       decoration: const InputDecoration(
+                      //         hintText: 'Country',
+                      //         border: OutlineInputBorder(),
+                      //         isDense: true,
+                      //         contentPadding: EdgeInsets.all(15),
+                      //       ),
+                      //       items: list.map<DropdownMenuItem<String>>(
+                      //         (String value) {
+                      //           return DropdownMenuItem<String>(
+                      //             value: value,
+                      //             child: Text(value),
+                      //           );
+                      //         },
+                      //       ).toList(),
+                      //       onChanged: ((value) => {}),
+                      //     ),
+                      //   ),
+                      // ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 16),
                         child: SizedBox(
                           width: 350.0,
                           child: ElevatedButton(
-                            onPressed: !formHasErrors ? () => {
-                              _formKey.currentState?.save(),
-                              print(_formKey.currentState?.value)
+                            onPressed: !changeFormState ? () => {
+                              print(formValues),
+                              //_formKey.currentState?.save(),
                             } : null,
                             // ignore: sort_child_properties_last
                             child: const Text(
