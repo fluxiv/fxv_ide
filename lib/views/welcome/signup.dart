@@ -14,14 +14,9 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(36.0),
-          ),
-          elevation: 15,
-          child: Container(
+        Container(
             // height: 600,
-            padding: const EdgeInsets.fromLTRB(45, 45, 45, 40),
+            padding: const EdgeInsets.fromLTRB(48, 70, 48, 48),
             child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +55,7 @@ class SignUp extends StatelessWidget {
           ),
         )
       ],
-    )))]);
+    ))]);
   }
 }
 

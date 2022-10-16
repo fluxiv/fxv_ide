@@ -27,13 +27,17 @@ class WelcomePageState extends State<WelcomePage> {
         leading: null,
         toolbarTextStyle: const TextStyle(color: Color(0xff000000)),
         backgroundColor: const Color(0xffffffff),
-        title: IconButton(
-          iconSize: 100,
-          onPressed: () => Navigator.pushNamed(context, '/'),
-          icon: SizedBox(
-            width: 100,
-            child: Image.asset(
-              "assets/logo/fxvLogo.png",
+
+        title: Padding(
+          padding: const EdgeInsets.only(left: 24),
+          child: IconButton(
+            iconSize: 100,
+            onPressed: () => Navigator.pushNamed(context, '/'),
+            icon: SizedBox(
+              width: 100,
+              child: Image.asset(
+                "assets/logo/fxvLogo.png",
+              ),
             ),
           ),
         ),
@@ -43,10 +47,10 @@ class WelcomePageState extends State<WelcomePage> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        padding: const EdgeInsets.fromLTRB(80, 20, 80, 20),
+        padding: const EdgeInsets.fromLTRB(24, 20, 24, 20),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/background/background.png"),
+            image: AssetImage("background/bgwelcome.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -97,29 +101,32 @@ class Actions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flex(
-      direction: Axis.horizontal,
-      children: const <Widget>[
-        Padding(
-          padding: EdgeInsets.only(right: 20.0),
-          child: Text('About'),
-        ),
-        Padding(
-          padding: EdgeInsets.only(right: 20.0),
-          child: Text('Services'),
-        ),
-        Padding(
-          padding: EdgeInsets.only(right: 20.0),
-          child: Text('Phylosophy'),
-        ),
-        Padding(
-          padding: EdgeInsets.only(right: 20.0),
-          child: Text(
-            'Privacy',
-            style: TextStyle(fontWeight: FontWeight.bold),
+    return Padding(
+      padding: const EdgeInsets.only(right: 24.0),
+      child: Flex(
+        direction: Axis.horizontal,
+        children: const <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: Text('About'),
           ),
-        ),
-      ],
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: Text('Services'),
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: Text('Phylosophy'),
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: Text(
+              'Privacy',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

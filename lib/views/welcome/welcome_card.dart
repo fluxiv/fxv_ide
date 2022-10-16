@@ -7,12 +7,8 @@ class WelcomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(36.0)),
-          elevation: 15,
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(64, 70, 64, 48),
+          Container(
+            padding: const EdgeInsets.fromLTRB(48, 70, 48, 48),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +71,6 @@ class WelcomeCard extends StatelessWidget {
               ],
             ),
           ),
-        )
       ],
     );
   }
