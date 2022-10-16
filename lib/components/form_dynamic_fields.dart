@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:validators/validators.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class FormDynamicFields extends StatefulWidget{
   final String fieldName;
@@ -32,6 +33,7 @@ class FormDynamicState extends State<FormDynamicFields>{
   int passwordLengthError = 0;
   int passwordUpperLowerError = 0;
   int passwordSpecialNumberError = 0;
+  var maskFormatter = MaskTextInputFormatter(mask: '##/##/####', filter: { "#": RegExp(r'[0-9.\-\/]') });
   @override
   Widget build(BuildContext context) {
     return myField();
@@ -263,8 +265,15 @@ class FormDynamicState extends State<FormDynamicFields>{
         );
       case 'date':
         return Focus(
+          onFocusChange: (focus) {
+            if(!focus){
+              var value = _fieldController.value.text;
+              print(value);
+            }
+          },
           child: TextFormField(
             controller: _fieldController,
+            inputFormatters: [maskFormatter],
             decoration: InputDecoration(
                 hintStyle: hasError ? const TextStyle(color: Color(0xffff0022),fontWeight: FontWeight.bold) : null,
                 hintText:  !hasError ? widget.fieldName : '${widget.fieldName} is invalid',

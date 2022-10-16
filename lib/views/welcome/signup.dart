@@ -1,7 +1,6 @@
 //import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 //import 'package:intl/intl.dart';
 import 'package:fxv_ide/components/form_dynamic_fields.dart';
 // import 'package:fxv_ide/modals/country.dart';
@@ -122,15 +121,11 @@ class MyFormState extends State<MyForm> {
                         padding: const EdgeInsets.only(bottom: 16),
                         child: SizedBox(
                           width: 350.0,
-                          child: FormBuilderTextField(
-                            name: 'birthday',
-                            decoration: const InputDecoration(
-                                hintText: "Birthday",
-                                border: OutlineInputBorder(),
-                                isDense: true,
-                                contentPadding: EdgeInsets.all(15)),
-                            style: const TextStyle(fontSize: 15.0),
-                          ),
+                          child: FormDynamicFields(
+                            fieldName: 'Birthday',
+                            fieldType: 'date',
+                            changeFormState: setFormState,
+                          )
                         ),
                       ),
                       Padding(
