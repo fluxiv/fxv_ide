@@ -1,12 +1,11 @@
 //import 'dart:convert';
-
 import 'package:flutter/material.dart';
 //import 'package:intl/intl.dart';
 import 'package:fxv_ide/components/form_dynamic_fields.dart';
+import 'package:fxv_ide/models/user_models.dart';
 // import 'package:fxv_ide/modals/country.dart';
 // import 'package:http/http.dart' as http;
 
-const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -73,14 +72,15 @@ class MyForm extends StatefulWidget {
 class MyFormState extends State<MyForm> {
   final _formKey = GlobalKey<FormState>();
   bool changeFormState = false;
-  var formValues = {};
-  setFormState(bool myBool,String fieldName, myValue) {
+  var formValues = [];
+  setFormState(bool myBool,String fieldName, dynamic myValue) {
     setState(() {
       changeFormState = myBool;
-      if(myBool){
-        formValues[fieldName] = {'value':myValue,'errors': true};
+      var lookIndex = formValues.indexOf((item) => item.fieldName == fieldName);
+      if(lookIndex != -1){
+        formValues[lookIndex] = SignUpModels(fieldName: fieldName, value: myValue, errors: myBool);
       } else{
-        formValues[fieldName] = {'value':myValue,'errors': false};
+        formValues.add(SignUpModels(fieldName: fieldName, value: myValue, errors: myBool));
       }
     });
   }
@@ -179,9 +179,14 @@ class MyFormState extends State<MyForm> {
                         child: SizedBox(
                           width: 350.0,
                           child: ElevatedButton(
-                            onPressed: !changeFormState ? () => {
-                              print(formValues),
+                            onPressed: !changeFormState ? (){
+                              var finalValues = {};
+                              //var finalValues = UserModels(name: name, birthday: birthday, email: email, password: password);
                               //_formKey.currentState?.save(),
+                              formValues.forEach((e) {
+                                finalValues[e.fieldName] = e.value;
+                              });
+                              print(finalValues);
                             } : null,
                             // ignore: sort_child_properties_last
                             child: const Text(
