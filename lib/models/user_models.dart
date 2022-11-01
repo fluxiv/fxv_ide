@@ -24,7 +24,7 @@ class UserModels {
 class SignUpModels {
   String fieldName;
   dynamic value;
-  bool errors;
+  int errors;
 
   SignUpModels({
     required this.fieldName,

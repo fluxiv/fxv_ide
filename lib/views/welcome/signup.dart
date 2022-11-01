@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import 'package:intl/intl.dart';
 import 'package:fxv_ide/components/form_dynamic_fields.dart';
 import 'package:fxv_ide/models/user_models.dart';
+import 'package:fxv_ide/services/user_services.dart';
 // import 'package:fxv_ide/modals/country.dart';
 // import 'package:http/http.dart' as http;
 
@@ -71,12 +72,14 @@ class MyForm extends StatefulWidget {
 // }
 class MyFormState extends State<MyForm> {
   final _formKey = GlobalKey<FormState>();
-  bool changeFormState = false;
+  //List changeFormState = [];
   var formValues = [];
-  setFormState(bool myBool,String fieldName, dynamic myValue) {
+  setFormState(int myBool,String fieldName, dynamic myValue) {
     setState(() {
-      changeFormState = myBool;
-      var lookIndex = formValues.indexOf((item) => item.fieldName == fieldName);
+      var lookIndex = formValues.indexWhere((item) => item.fieldName == fieldName);
+      // var teste = formValues.contains((e) => e.fieldName == fieldName);
+      // var teste2 = formValues.map((e) => e.fieldName == fieldName);
+      // var teste3 = formValues.indexWhere((element) => element.fieldName == fieldName);
       if(lookIndex != -1){
         formValues[lookIndex] = SignUpModels(fieldName: fieldName, value: myValue, errors: myBool);
       } else{
@@ -149,7 +152,18 @@ class MyFormState extends State<MyForm> {
                           ),
                         ),
                       ),
-
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: SizedBox(
+                          width: 350,
+                          child: ElevatedButton(
+                            onPressed: () => {
+                              print(formValues)
+                            },
+                            child: const Text('teste'),
+                          ),
+                        )
+                      ),
                       // Padding(
                       //   padding: const EdgeInsets.only(bottom: 16),
                       //   child: SizedBox(
@@ -174,27 +188,28 @@ class MyFormState extends State<MyForm> {
                       //     ),
                       //   ),
                       // ),
+
                       Padding(
                         padding: const EdgeInsets.only(bottom: 16),
                         child: SizedBox(
                           width: 350.0,
                           child: ElevatedButton(
-                            onPressed: !changeFormState ? (){
+                            onPressed: formValues.indexWhere((item) => item.errors == 0 || item.errors == 1) == -1  ? () async {
                               var finalValues = {};
                               //var finalValues = UserModels(name: name, birthday: birthday, email: email, password: password);
                               //_formKey.currentState?.save(),
-                              formValues.forEach((e) {
-                                finalValues[e.fieldName] = e.value;
-                              });
-                              print(finalValues);
+                              for(var value in formValues){
+                                finalValues[value.fieldName] = value.value;
+                              }
+                              var response = await UserServices().postUser(finalValues);
                             } : null,
                             // ignore: sort_child_properties_last
-                            child: const Text(
+                            child: Text(
                               'Sign Up',
-                              style: TextStyle(color: Color(0xff30AAD8)),
+                              style: TextStyle(color: formValues.indexWhere((item) => item.errors == 0 || item.errors == 1) == -1 ? const Color(0xff30AAD8) : const Color(0xff000000)),
                             ),
                             style: ElevatedButton.styleFrom(
-                              primary: const Color(0xffdbdbdb),
+                              backgroundColor: formValues.indexWhere((item) => item.errors == 0 || item.errors == 1) == -1 ? const Color(0xffdbdbdb) :  const Color(0xff30AAD8),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 50, vertical: 20),
                             ),

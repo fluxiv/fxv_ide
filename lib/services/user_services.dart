@@ -1,11 +1,13 @@
 import 'package:http/http.dart' as http;
 import 'package:fxv_ide/environment/environment.dart';
+import 'dart:convert';
 
 class UserServices {
 //final String baseUrl = Environment().urlApi
-   postUser (params) async{
-
-    var url = Uri.https(Environment().urlApi,'postUser');
-    var response = await http.post(url,body: params);
+   postUser (dynamic params) async{
+     var body = json.encode(params);
+    var url = Uri.http(Environment().urlApi,'/user/postUser');
+    return await http.post(url,body: body,headers: {
+     "Content-Type": "application/json"});
   }
 }

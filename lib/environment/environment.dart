@@ -1,5 +1,5 @@
  class Environment{
-  String urlApi = 'http://localhost:4040/';
+  String urlApi = '127.0.0.1:4040';
   String token = '';
 
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:validators/validators.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -38,6 +40,20 @@ class FormDynamicState extends State<FormDynamicFields> {
   int passwordSpecialNumberError = 0;
   var maskFormatter = MaskTextInputFormatter(
       mask: '##/##/####', filter: {"#": RegExp(r'[0-9.\-\/]')});
+
+  @override
+  void initState(){
+    super.initState();
+    Timer(const Duration(seconds: 1), (){
+    setState(() {
+    widget.changeFormState(0, widget.fieldName, '');
+    });
+    });
+    //
+    print('teste');
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return myField();
@@ -90,12 +106,12 @@ class FormDynamicState extends State<FormDynamicFields> {
               if (value.isEmpty || value.length < 3) {
                 setState(() {
                   hasError = true;
-                  widget.changeFormState(true, widget.fieldName, value);
+                  widget.changeFormState(1, widget.fieldName, value);
                 });
               } else {
                 setState(() {
                   hasError = false;
-                  widget.changeFormState(false, widget.fieldName, value);
+                  widget.changeFormState(2, widget.fieldName, value);
                 });
               }
             }
@@ -120,11 +136,11 @@ class FormDynamicState extends State<FormDynamicFields> {
               if (value.isEmpty || !isEmail(value)) {
                 setState(() {
                   hasError = true;
-                  widget.changeFormState(true, widget.fieldName, value);
+                  widget.changeFormState(1, widget.fieldName, value);
                 });
               } else {
                 hasError = false;
-                widget.changeFormState(false, widget.fieldName, value);
+                widget.changeFormState(2, widget.fieldName, value);
               }
             }
           },
@@ -145,21 +161,21 @@ class FormDynamicState extends State<FormDynamicFields> {
           children: [
             Focus(
               onFocusChange: (focus) {
-                String value = _fieldController.value.text;
+                dynamic value = _fieldController.value.text;
                 if (!focus && widget.showPassArgs) {
                   if (passwordUpperLowerError != 2 ||
                       passwordSpecialNumberError != 2 ||
                       passwordLengthError != 2) {
                     setState(() {
                       hasError = true;
-                      widget.changeFormState(true, widget.fieldName, value);
+                      widget.changeFormState(1, widget.fieldName, value);
                     });
                   } else if (passwordUpperLowerError == 2 &&
                       passwordSpecialNumberError == 2 &&
                       passwordLengthError == 2) {
                     setState(() {
                       hasError = false;
-                      widget.changeFormState(false, widget.fieldName, value);
+                      widget.changeFormState(2, widget.fieldName, value);
                     });
                   }
                 } else if (!focus &&
@@ -168,27 +184,28 @@ class FormDynamicState extends State<FormDynamicFields> {
                   if (value.isNotEmpty) {
                     setState(() {
                       hasError = false;
-                      widget.changeFormState(false, widget.fieldName, value);
+                      widget.changeFormState(2, widget.fieldName, value);
                     });
                   } else {
                     setState(() {
                       hasError = true;
-                      widget.changeFormState(true, widget.fieldName, value);
+                      widget.changeFormState(1, widget.fieldName, value);
                     });
                   }
                 } else if (!focus &&
                     !widget.showPassArgs &&
                     widget.fieldRef != null) {
-                  var refValue = widget.formRef[widget.fieldRef]['value'];
+                  var index = widget.formRef.indexWhere((v) => v.fieldName == widget.fieldRef);
+                  dynamic refValue = widget.formRef[index].value;
                   if (refValue != '' && refValue == value) {
                     setState(() {
                       hasError = false;
-                      widget.changeFormState(false, widget.fieldName, value);
+                      widget.changeFormState(2, widget.fieldName, value);
                     });
                   } else {
                     setState(() {
                       hasError = true;
-                      widget.changeFormState(true, widget.fieldName, value);
+                      widget.changeFormState(1, widget.fieldName, value);
                     });
                   }
                 }
@@ -347,16 +364,15 @@ class FormDynamicState extends State<FormDynamicFields> {
           onFocusChange: (focus) {
             if (!focus) {
               var value = _fieldController.value.text;
-              print(value);
               if (value.isEmpty || value.length < 3) {
                 setState(() {
                   hasError = true;
-                  widget.changeFormState(true, widget.fieldName, value);
+                  widget.changeFormState(1, widget.fieldName, value);
                 });
               } else {
                 setState(() {
                   hasError = false;
-                  widget.changeFormState(false, widget.fieldName, value);
+                  widget.changeFormState(2, widget.fieldName, value);
                 });
               }
             }

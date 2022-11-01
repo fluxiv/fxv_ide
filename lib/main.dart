@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Fluxiv space',
       theme: ThemeData(
         primaryColor: const Color(FxvTheme.fxvColor),
         fontFamily: 'Heebo',
