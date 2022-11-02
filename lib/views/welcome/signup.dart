@@ -74,6 +74,7 @@ class MyFormState extends State<MyForm> {
   final _formKey = GlobalKey<FormState>();
   //List changeFormState = [];
   var formValues = [];
+  int formErrors = 0;
   setFormState(int myBool,String fieldName, dynamic myValue) {
     setState(() {
       var lookIndex = formValues.indexWhere((item) => item.fieldName == fieldName);
@@ -85,6 +86,7 @@ class MyFormState extends State<MyForm> {
       } else{
         formValues.add(SignUpModels(fieldName: fieldName, value: myValue, errors: myBool));
       }
+      formErrors = formValues.indexWhere((item) => item.errors == 0 || item.errors == 1);
     });
   }
   @override
@@ -194,7 +196,7 @@ class MyFormState extends State<MyForm> {
                         child: SizedBox(
                           width: 350.0,
                           child: ElevatedButton(
-                            onPressed: formValues.indexWhere((item) => item.errors == 0 || item.errors == 1) == -1  ? () async {
+                            onPressed: formErrors == -1  ? () async {
                               var finalValues = {};
                               //var finalValues = UserModels(name: name, birthday: birthday, email: email, password: password);
                               //_formKey.currentState?.save(),
@@ -206,10 +208,10 @@ class MyFormState extends State<MyForm> {
                             // ignore: sort_child_properties_last
                             child: Text(
                               'Sign Up',
-                              style: TextStyle(color: formValues.indexWhere((item) => item.errors == 0 || item.errors == 1) == -1 ? const Color(0xff30AAD8) : const Color(0xff000000)),
+                              style: TextStyle(color: formErrors != -1 ? const Color(0xff30AAD8) : const Color(0xffffffff)),
                             ),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: formValues.indexWhere((item) => item.errors == 0 || item.errors == 1) == -1 ? const Color(0xffdbdbdb) :  const Color(0xff30AAD8),
+                              backgroundColor: formErrors != -1 ? const Color(0xffdbdbdb) :  const Color(0xff30AAD8),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 50, vertical: 20),
                             ),
