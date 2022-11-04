@@ -8,6 +8,7 @@ class FxvTheme {
   FxvTheme._();
 
   static const fxvColor =  0xff30AAD8;
+  static const darkColor = 0xff2C4251;
   
   static const MaterialColor blue = MaterialColor(
     fxvColor,
@@ -26,12 +27,40 @@ class FxvTheme {
   );
 
   static const fxvTexts = TextTheme(
-    headline1: TextStyle(fontFamily: 'Heebo',fontSize: 96),
-    headline2: TextStyle(),
-    headline3: TextStyle(),
-    headline4: TextStyle(),
-    headline5: TextStyle(),
-    headline6: TextStyle(),
-    bodyText1: TextStyle(),
-  );
-}
+    headline1: TextStyle(
+        fontWeight: FontWeight.w800,
+        color: Color(0xff000000),
+        fontSize: 60,
+        fontFamily: 'Heebo',
+        height: 0.9),
+    headline2: TextStyle(
+        fontWeight: FontWeight.w900,
+        color: Color(0xff000000),
+        fontSize: 48,
+        fontFamily: 'Heebo',
+        height: 0.9),
+    headline3: TextStyle(
+        fontWeight: FontWeight.w900,
+        color: Color(0xff000000),
+        fontSize: 36,
+        fontFamily: 'Heebo',
+        height: 0.9),
+    headline4: TextStyle(
+        fontWeight: FontWeight.w900,
+        color: Color(fxvColor),
+        fontSize: 24,
+        fontFamily: 'Heebo'),
+    headline5: TextStyle(
+        fontWeight: FontWeight.w900,
+        color: Color(fxvColor),
+        fontSize: 20,
+        fontFamily: 'Heebo'),
+    headline6: TextStyle(
+        fontWeight: FontWeight.w900,
+        color: Color(fxvColor),
+        fontSize: 15,
+        fontFamily: 'Heebo'),
+    bodyText1: TextStyle(
+      fontFamily: 'Heebo'),
+    )
+  ;}
