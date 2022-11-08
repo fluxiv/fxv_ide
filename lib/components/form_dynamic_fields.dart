@@ -39,7 +39,7 @@ class FormDynamicState extends State<FormDynamicFields> {
   int passwordUpperLowerError = 0;
   int passwordSpecialNumberError = 0;
   var maskFormatter = MaskTextInputFormatter(
-      mask: '##/##/####', filter: {"#": RegExp(r'[0-9.\-\/]')});
+      mask: '##/##/####', filter: {"#": RegExp(r'[0-9]')});
 
   @override
   void initState(){
@@ -97,14 +97,13 @@ class FormDynamicState extends State<FormDynamicFields> {
   dynamic myField() {
     switch (widget.fieldType) {
       case 'text':
-        return Focus(
-          onFocusChange: (focus) {
-            if (!focus) {
-              String value = _fieldController.value.text;
+        return TextFormField(
+            controller: _fieldController,
+            onChanged: (value) {
               if (value.isEmpty || value.length < 3) {
                 setState(() {
                   hasError = true;
-                  widget.changeFormState(1, widget.fieldName, value);
+                  widget.changeFormState(0, widget.fieldName, value);
                 });
               } else {
                 setState(() {
@@ -112,10 +111,7 @@ class FormDynamicState extends State<FormDynamicFields> {
                   widget.changeFormState(2, widget.fieldName, value);
                 });
               }
-            }
-          },
-          child: TextFormField(
-            controller: _fieldController,
+            },
             decoration: FormInputDecoration(
                     error: hasError,
                     fieldName: widget.fieldName,
@@ -123,8 +119,7 @@ class FormDynamicState extends State<FormDynamicFields> {
                     showText: showText)
                 .myInput(),
             style: const TextStyle(fontSize: 15.0),
-          ),
-        );
+          );
 
       case 'email':
         return Focus(
@@ -136,14 +131,22 @@ class FormDynamicState extends State<FormDynamicFields> {
                   hasError = true;
                   widget.changeFormState(1, widget.fieldName, value);
                 });
-              } else {
-                hasError = false;
-                widget.changeFormState(2, widget.fieldName, value);
               }
             }
           },
           child: TextFormField(
             controller: _fieldController,
+            onChanged: (value) {
+              if (value.isEmpty || !isEmail(value)) {
+                setState(() {
+                  hasError = false;
+                  widget.changeFormState(0, widget.fieldName, value);
+                });
+              } else {
+                hasError = false;
+                widget.changeFormState(2, widget.fieldName, value);
+              }
+            },
             decoration: FormInputDecoration(
                     error: hasError,
                     fieldName: widget.fieldName,
@@ -190,22 +193,6 @@ class FormDynamicState extends State<FormDynamicFields> {
                       widget.changeFormState(1, widget.fieldName, value);
                     });
                   }
-                } else if (!focus &&
-                    !widget.showPassArgs &&
-                    widget.fieldRef != null) {
-                  var index = widget.formRef.indexWhere((v) => v.fieldName == widget.fieldRef);
-                  dynamic refValue = widget.formRef[index].value;
-                  if (refValue != '' && refValue == value) {
-                    setState(() {
-                      hasError = false;
-                      widget.changeFormState(2, widget.fieldName, value);
-                    });
-                  } else {
-                    setState(() {
-                      hasError = true;
-                      widget.changeFormState(1, widget.fieldName, value);
-                    });
-                  }
                 }
               },
               child: TextFormField(
@@ -239,6 +226,34 @@ class FormDynamicState extends State<FormDynamicFields> {
                     setState(() {
                       passwordSpecialNumberError = 1;
                     });
+                  }
+                  if(widget.fieldRef != null){
+                    var index = widget.formRef.indexWhere((v) => v.fieldName == widget.fieldRef);
+                    dynamic refValue = widget.formRef[index].value;
+                    if(value.length < refValue.length){
+                      setState(() {
+                        hasError = false;
+                        widget.changeFormState(0, widget.fieldName, value);
+                      });
+                    } else if(value.length == refValue.length){
+                      if(value == refValue){
+                        setState(() {
+                          hasError = false;
+                          widget.changeFormState(2, widget.fieldName, value);
+                        });
+                      } else {
+                        setState(() {
+                          hasError = true;
+                          widget.changeFormState(1, widget.fieldName, value);
+                        });
+
+                      }
+                    } else if(value.length > refValue.length){
+                        setState(() {
+                          hasError = true;
+                          widget.changeFormState(1, widget.fieldName, value);
+                        });
+                    }
                   }
                 },
                 decoration: FormInputDecoration(
@@ -362,7 +377,9 @@ class FormDynamicState extends State<FormDynamicFields> {
           onFocusChange: (focus) {
             if (!focus) {
               var value = _fieldController.value.text;
-              if (value.isEmpty || value.length < 3) {
+              var pattern = r'^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$';
+              RegExp regExp = RegExp(pattern);
+              if (value.isEmpty || !regExp.hasMatch(value)) {
                 setState(() {
                   hasError = true;
                   widget.changeFormState(1, widget.fieldName, value);

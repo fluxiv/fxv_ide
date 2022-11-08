@@ -78,9 +78,6 @@ class MyFormState extends State<MyForm> {
   setFormState(int myBool,String fieldName, dynamic myValue) {
     setState(() {
       var lookIndex = formValues.indexWhere((item) => item.fieldName == fieldName);
-      // var teste = formValues.contains((e) => e.fieldName == fieldName);
-      // var teste2 = formValues.map((e) => e.fieldName == fieldName);
-      // var teste3 = formValues.indexWhere((element) => element.fieldName == fieldName);
       if(lookIndex != -1){
         formValues[lookIndex] = SignUpModels(fieldName: fieldName, value: myValue, errors: myBool);
       } else{
@@ -153,18 +150,6 @@ class MyFormState extends State<MyForm> {
                             fieldRef: 'Password'
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: SizedBox(
-                          width: 350,
-                          child: ElevatedButton(
-                            onPressed: () => {
-                              print(formValues)
-                            },
-                            child: const Text('teste'),
-                          ),
-                        )
                       ),
                       // Padding(
                       //   padding: const EdgeInsets.only(bottom: 16),
