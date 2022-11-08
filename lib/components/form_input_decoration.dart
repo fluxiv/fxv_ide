@@ -102,14 +102,6 @@ class FormInputDecoration {
               borderSide: error
                   ? const BorderSide(color: Color(0xffff0022), width: 1)
                   : const BorderSide(color: Color(0xffDBDBDB), width: 1)),
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(7),
-                topRight: Radius.circular(8),
-                bottomLeft: Radius.circular(8),
-                bottomRight: Radius.circular(7)),
-            borderSide: BorderSide(),
-          ),
           isDense: true,
           contentPadding: const EdgeInsets.all(15),
         );
@@ -132,14 +124,6 @@ class FormInputDecoration {
               borderSide: error
                   ? const BorderSide(color: Color(0xffff0022), width: 1)
                   : const BorderSide(color: Color(0xffDBDBDB), width: 1)),
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(7),
-                topRight: Radius.circular(8),
-                bottomLeft: Radius.circular(8),
-                bottomRight: Radius.circular(7)),
-            borderSide: BorderSide(),
-          ),
           isDense: true,
           contentPadding: const EdgeInsets.all(15),
         );
@@ -147,32 +131,34 @@ class FormInputDecoration {
         return InputDecoration(
           hintText: fieldName,
           suffixIcon: IconButton(
-              onPressed: showTextFunc,
-              icon: showText
-                  ? Icon(
-                      Icons.visibility_off_rounded,
-                      color: error ? const Color(0xffff0022) : null,
-                    )
-                  : Icon(Icons.visibility_rounded,
-                      color: error ? const Color(0xffff0022) : null)),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(7),
-                  topRight: Radius.circular(8),
-                  bottomLeft: Radius.circular(8),
-                  bottomRight: Radius.circular(7)),
-              borderSide: error
-                  ? const BorderSide(color: Color(0xffff0022), width: 1)
-                  : const BorderSide(color: Color(0xffDBDBDB), width: 1)),
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(7),
-              topRight: Radius.circular(8),
-              bottomLeft: Radius.circular(8),
-              bottomRight: Radius.circular(7),
-            ),
-            borderSide: BorderSide(color: Color(0xffDBDBDB), width: 1),
+            onPressed: showTextFunc,
+            icon: showText
+                ? Icon(
+                    Icons.visibility_off_rounded,
+                    color: error ? const Color(0xffff0022) : null,
+                  )
+                : Icon(Icons.visibility_rounded,
+                    color: error ? const Color(0xffff0022) : null),
           ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(7),
+                topRight: Radius.circular(8),
+                bottomLeft: Radius.circular(8),
+                bottomRight: Radius.circular(7)),
+            borderSide: error
+                ? const BorderSide(color: Color(0xffff0022), width: 1)
+                : const BorderSide(color: Color(0xffDBDBDB), width: 1),
+          ),
+          // border: const OutlineInputBorder(
+          //   borderRadius: BorderRadius.only(
+          //     topLeft: Radius.circular(7),
+          //     topRight: Radius.circular(8),
+          //     bottomLeft: Radius.circular(8),
+          //     bottomRight: Radius.circular(7),
+          //   ),
+          //   borderSide: BorderSide(color: Color(0xffDBDBDB), width: 1),
+          // ),
           isDense: true,
           contentPadding: const EdgeInsets.all(15),
         );
@@ -198,15 +184,6 @@ class FormInputDecoration {
             borderSide: error
                 ? const BorderSide(color: Color(0xffff0022), width: 1)
                 : const BorderSide(color: Color(0xffDBDBDB), width: 1),
-          ),
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(7),
-              topRight: Radius.circular(8),
-              bottomLeft: Radius.circular(8),
-              bottomRight: Radius.circular(7),
-            ),
-            borderSide: BorderSide(),
           ),
           isDense: true,
           contentPadding: const EdgeInsets.all(15),
