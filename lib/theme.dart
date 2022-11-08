@@ -1,30 +1,54 @@
 import 'package:flutter/material.dart';
 
+class AppTheme {
+  ThemeData get theme => ThemeData(
+        primaryColor: const Color(FxvTheme.fxvColor),
+        fontFamily: 'Heebo',
+        primarySwatch: FxvTheme.blue,
+        // textTheme: FxvTheme.fxvTexts,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all(
+              const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+            ),
+          ),
+        ),
+        textTheme: FxvTheme.fxvTexts,
+        inputDecorationTheme: const InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(7),
+                topRight: Radius.circular(8),
+                bottomLeft: Radius.circular(8),
+                bottomRight: Radius.circular(7)),
+            borderSide: BorderSide(),
+          ),
+        ),
+      );
+}
+
 final ThemeData fxvThemeData = ThemeData(
-    primarySwatch: FxvTheme.blue,
+  primarySwatch: FxvTheme.blue,
 );
 
 class FxvTheme {
   FxvTheme._();
 
-  static const fxvColor =  0xff30AAD8;
+  static const fxvColor = 0xff30AAD8;
   static const darkColor = 0xff2C4251;
-  
-  static const MaterialColor blue = MaterialColor(
-    fxvColor,
-    <int,Color> {
-      50: Color(0xffdff2f9),
-      100: Color(0xffaedef0),
-      200: Color(0xff79c9e6),
-      300: Color(fxvColor),
-      400: Color(0xff16a5d7),
-      500: Color(0xff0096d3),
-      600: Color(0xff0089c5),
-      700: Color(0xff0077b3),
-      800: Color(0xff0067a0),
-      900: Color(0xff004880),
-    }
-  );
+
+  static const MaterialColor blue = MaterialColor(fxvColor, <int, Color>{
+    50: Color(0xffdff2f9),
+    100: Color(0xffaedef0),
+    200: Color(0xff79c9e6),
+    300: Color(fxvColor),
+    400: Color(0xff16a5d7),
+    500: Color(0xff0096d3),
+    600: Color(0xff0089c5),
+    700: Color(0xff0077b3),
+    800: Color(0xff0067a0),
+    900: Color(0xff004880),
+  });
 
   static const fxvTexts = TextTheme(
     headline1: TextStyle(
@@ -60,7 +84,6 @@ class FxvTheme {
         color: Color(fxvColor),
         fontSize: 15,
         fontFamily: 'Heebo'),
-    bodyText1: TextStyle(
-      fontFamily: 'Heebo'),
-    )
-  ;}
+    bodyText1: TextStyle(fontFamily: 'Heebo'),
+  );
+}

@@ -19,12 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fluxiv space',
-      theme: ThemeData(
-        primaryColor: const Color(FxvTheme.fxvColor),
-        fontFamily: 'Heebo',
-        primarySwatch: FxvTheme.blue,
-        textTheme: FxvTheme.fxvTexts,
-      ),
+      theme: AppTheme().theme,
       //home: const Welcome(),
       initialRoute: '/',
       routes: {
