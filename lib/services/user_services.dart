@@ -10,4 +10,9 @@ class UserServices {
     return await http.post(url,body: body,headers: {
      "Content-Type": "application/json"});
   }
+   loginUser (dynamic params) async{
+     var body = json.encode(params);
+     var url = Uri.http(Environment().urlApi,'/user/loginUser');
+     return await http.post(url,body:body,headers: {"Content-Type": "application/json"});
+   }
 }

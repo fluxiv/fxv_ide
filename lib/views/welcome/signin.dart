@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fxv_ide/components/form_dynamic_fields.dart';
+import 'package:fxv_ide/models/user_models.dart';
+import 'package:fxv_ide/services/user_services.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -60,16 +62,19 @@ class MyFormLogin extends StatefulWidget {
 
 class _MyFormLoginState extends State<MyFormLogin> {
   final _formKey = GlobalKey<FormState>();
-  bool changeFormState = false;
-  var formValues = {};
-  setFormState(bool myBool,String fieldName, myValue) {
+  int changeFormState = 0;
+  var formValues = [];
+  int formErrors = 0;
+  setFormState(int myInt,String fieldName, myValue) {
     setState(() {
-      changeFormState = myBool;
-      if(myBool){
-        formValues[fieldName] = {'value':myValue,'errors': true};
+      changeFormState = myInt;
+      var lookIndex = formValues.indexWhere((item) => item.fieldName == fieldName);
+      if(lookIndex != -1){
+        formValues[lookIndex] = SignUpModels(fieldName: fieldName, value: myValue, errors: myInt);
       } else{
-        formValues[fieldName] = {'value':myValue,'errors': false};
+        formValues.add(SignUpModels(fieldName: fieldName, value: myValue, errors: myInt));
       }
+        formErrors = formValues.indexWhere((item) => item.errors == 0 || item.errors == 1);
     });
   }
   @override
@@ -113,8 +118,15 @@ class _MyFormLoginState extends State<MyFormLogin> {
                         child: SizedBox(
                           width: 350.0,
                           child: ElevatedButton(
-                            onPressed: () => {
-                              null
+                            onPressed: () async {
+                              var finalValues = {};
+                              //var finalValues = UserModels(name: name, birthday: birthday, email: email, password: password);
+                              //_formKey.currentState?.save(),
+                              for(var value in formValues){
+                              finalValues[value.fieldName] = value.value;
+                              }
+                              var response = await UserServices().loginUser(finalValues);
+                              print(response.body);
                             },
                             // ignore: sort_child_properties_last
                             child: const Text(
@@ -124,7 +136,7 @@ class _MyFormLoginState extends State<MyFormLogin> {
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
-                              primary: const Color(0xff30AAD8),
+                              backgroundColor: const Color(0xff30AAD8),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 50, vertical: 20),
                             ),
