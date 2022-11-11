@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fxv_ide/theme.dart';
+import 'package:fxv_ide/services/user_services.dart';
 
 class Terms extends StatelessWidget {
   const Terms({super.key});
@@ -128,7 +129,15 @@ class TermFormState extends State<TermForm>{
                   padding: const EdgeInsets.symmetric(
                       horizontal: 50, vertical: 20)
               ),
-              onPressed: accepted == true ? () => {} : null,
+              onPressed: accepted == true ? () async {
+                var params = {
+                  "id": "ZUuZy5lJ5cFwetiXZuqY9",
+                  "bool": "true"
+                };
+                var response = await UserServices().updateTerms(params);
+                print(response.body);
+                print(response.statusCode);
+              } : null,
               child: Text("Go to Fluxiv!", style: TextStyle(color: Color(FxvTheme.fxvColor), fontWeight: FontWeight.w900),)),)
 
 
