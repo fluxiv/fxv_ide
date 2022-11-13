@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fxv_ide/components/form_dynamic_fields.dart';
 import 'package:fxv_ide/models/user_models.dart';
+import 'package:fxv_ide/services/shared_services.dart';
 import 'package:fxv_ide/services/user_services.dart';
 
 class SignIn extends StatelessWidget {
@@ -126,7 +129,27 @@ class _MyFormLoginState extends State<MyFormLogin> {
                               finalValues[value.fieldName] = value.value;
                               }
                               var response = await UserServices().loginUser(finalValues);
-                              print(response.body);
+                              if(response.statusCode == 200){
+                                final body = json.decode(response.body);
+                                var userModels = UserModels(
+                                    id: body['data']['id'],
+                                    name: body['data']['name'],
+                                    birthday: body['data']['birthday'],
+                                    email: body['data']['email'],
+                                    isPremium: body['data']['isPremium'],
+                                    terms: body['data']['terms']
+                                );
+                                String token = body['token'];
+                                SharedServices().saveString('id', userModels.id);
+                                SharedServices().saveString('token', token);
+                                if(userModels.terms == 0){
+                                  if(mounted) {
+                                    SharedServices().eraseAndgoTo(context, '/terms');
+                                  }
+                                }
+                                // await prefs.setString('id', response.body['id']);
+                                // await prefs.setString('token', response.body['token']);
+                              }
                             },
                             // ignore: sort_child_properties_last
                             child: const Text(

@@ -70,6 +70,9 @@ class WelcomePageState extends State<WelcomePage> {
                 case '/sign-in':
                   page = const SignIn();
                   break;
+                default:
+                  Navigator.popAndPushNamed(context, settings.name!);
+                  //Navigator.pop(context);
               }
 
               return PageRouteBuilder(

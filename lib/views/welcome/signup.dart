@@ -1,8 +1,11 @@
 //import 'dart:convert';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 //import 'package:intl/intl.dart';
 import 'package:fxv_ide/components/form_dynamic_fields.dart';
 import 'package:fxv_ide/models/user_models.dart';
+import 'package:fxv_ide/services/shared_services.dart';
 import 'package:fxv_ide/services/user_services.dart';
 // import 'package:fxv_ide/modals/country.dart';
 // import 'package:http/http.dart' as http;
@@ -16,7 +19,7 @@ class SignUp extends StatelessWidget {
       children: [
         Container(
             // height: 600,
-            padding: const EdgeInsets.fromLTRB(48, 70, 48, 48),
+            padding: const EdgeInsets.fromLTRB(48, 48, 48, 48),
             child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,14 +184,24 @@ class MyFormState extends State<MyForm> {
                         child: SizedBox(
                           width: 350.0,
                           child: ElevatedButton(
-                            onPressed: formErrors == -1  ? () async {
+                            onPressed: formErrors == -1  ? () async{
                               var finalValues = {};
                               //var finalValues = UserModels(name: name, birthday: birthday, email: email, password: password);
                               //_formKey.currentState?.save(),
                               for(var value in formValues){
-                                finalValues[value.fieldName] = value.value;
+                                if(value.fieldName != 'Repeat password') {
+                                  finalValues[value.fieldName] = value.value;
+                                }
                               }
                               var response = await UserServices().postUser(finalValues);
+                              if(response.statusCode == 201){
+                                  final body = json.decode(response.body);
+                                  SharedServices().saveString('id', body['id']);
+                                  SharedServices().saveString('token', body['token']);
+                                  if(mounted){
+                                    Navigator.popAndPushNamed(context, '/terms');
+                                  }
+                              }
                             } : null,
                             // ignore: sort_child_properties_last
                             child: Text(

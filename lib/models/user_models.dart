@@ -1,21 +1,25 @@
 class UserModels {
+  String id;
   String name;
   String birthday;
   String email;
-  String password;
+
+  int? isPremium;
+  int? terms;
 
    UserModels({
+     required this.id,
     required this.name,
     required this.birthday,
     required this.email,
-    required this.password});
+   this.isPremium,
+   this.terms});
 
   Map<String, dynamic> toMap() {
     return {
       'name': name,
       'birthday': birthday,
       'email': email,
-      'password': password
     };
   }
 

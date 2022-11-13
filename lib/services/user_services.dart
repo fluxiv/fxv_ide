@@ -1,3 +1,4 @@
+import 'package:fxv_ide/services/shared_services.dart';
 import 'package:http/http.dart' as http;
 import 'package:fxv_ide/environment/environment.dart';
 import 'dart:convert';
@@ -21,10 +22,11 @@ class UserServices {
        "id": params["id"],
        "bool": params["bool"]
      };
+     String token = await Environment().getToken();
      var url = Uri.http(Environment().urlApi,'/user/putTerms', queryParams);
      return await http.put(url, headers: {
        "Content-Type": "application/json",
-       "x-authorization": "eyJhbGciOiJIUzI1NiJ9.WlV1Wnk1bEo1Y0Z3ZXRpWFp1cVk5.0q4HbRRsvIcPx8vKRqx49k-wL3tPrmLrco1ZzC8GkXI"
+       "x-authorization": token
      });
    }
 }
