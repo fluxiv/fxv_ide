@@ -150,6 +150,15 @@ class _MyFormLoginState extends State<MyFormLogin> {
                                 // await prefs.setString('id', response.body['id']);
                                 // await prefs.setString('token', response.body['token']);
                               }
+                              else{
+                                final body = json.decode(response.body);
+                                showDialog(context: context, builder:(BuildContext context) => AlertDialog(
+                                  title: const Text("Error!", style: TextStyle(fontSize: 24),), content: Text(body["msg"]), actions: [
+                                    ElevatedButton(onPressed: () => Navigator.pop(context, "Ok"), child: const Text("Ok", style: TextStyle(color: Color(0xffffffff)),))
+                                ],
+
+                                ));
+                              }
                             },
                             // ignore: sort_child_properties_last
                             child: const Text(
