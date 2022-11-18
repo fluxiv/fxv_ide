@@ -144,7 +144,7 @@ class _MyFormLoginState extends State<MyFormLogin> {
                                 SharedServices().saveString('token', token);
                                 if(userModels.terms == 0){
                                   if(mounted) {
-                                    SharedServices().eraseAndgoTo(context, '/terms');
+                                    SharedServices().eraseAndGoTo(context, '/terms');
                                   }
                                 }
                                 // await prefs.setString('id', response.body['id']);

@@ -13,7 +13,7 @@ class SharedServices{
     SharedPreferences prefs = await getShared();
     return prefs.getString(key);
   }
-  eraseAndgoTo(context,route){
+  eraseAndGoTo(context,route){
     Navigator.popAndPushNamed(context, '/terms');
   }
 }

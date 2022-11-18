@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:fxv_ide/views/welcome/signup.dart';
-// import 'package:fxv_ide/views/welcome/signin.dart';
-// import 'package:fxv_ide/views/welcome/welcome_card.dart';
+import 'package:fxv_ide/views/feed/feed_container.dart';
 import 'package:fxv_ide/views/welcome/welcome.dart';
 import 'package:fxv_ide/views/terms/terms.dart';
 import './theme.dart';
@@ -26,7 +24,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => const Welcome(),
         '/sign-in': (context) => const Welcome(),
         '/sign-up': (context) => const Welcome(),
-        '/terms': (context) => const Terms()
+        '/terms': (context) => const Terms(),
+        '/feed': (context) => const FeedContainer()
       },
     );
   }
