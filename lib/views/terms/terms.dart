@@ -137,6 +137,11 @@ class TermFormState extends State<TermForm>{
                   "bool": "true"
                 };
                 var response = await UserServices().updateTerms(params);
+                if(response.statusCode == 201){
+                  if(mounted){
+                    SharedServices().eraseAndGoTo(context, '/feed');
+                  }
+                }
               } : null,
               child: Text("Go to Fluxiv!", style: TextStyle(color: Color(FxvTheme.fxvColor), fontWeight: FontWeight.w900),)),)
 
