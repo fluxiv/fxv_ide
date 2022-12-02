@@ -129,6 +129,7 @@ class _MyFormLoginState extends State<MyFormLogin> {
                               finalValues[value.fieldName] = value.value;
                               }
                               var response = await UserServices().loginUser(finalValues);
+                              print(response);
                               if(response.statusCode == 200){
                                 final body = json.decode(response.body);
                                 var userModels = UserModels(
@@ -147,6 +148,12 @@ class _MyFormLoginState extends State<MyFormLogin> {
                                     SharedServices().eraseAndGoTo(context, '/terms');
                                   }
                                 }
+                                else{
+                                  if(mounted) {
+                                    SharedServices().eraseAndGoTo(context, '/feed');
+                                  }
+                                }
+
                                 // await prefs.setString('id', response.body['id']);
                                 // await prefs.setString('token', response.body['token']);
                               }

@@ -14,6 +14,6 @@ class SharedServices{
     return prefs.getString(key);
   }
   eraseAndGoTo(context,route){
-    Navigator.popAndPushNamed(context, '/terms');
+    Navigator.popAndPushNamed(context, route);
   }
 }
