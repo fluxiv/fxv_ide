@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -150,7 +151,10 @@ class _MyFormLoginState extends State<MyFormLogin> {
                                 }
                                 else{
                                   if(mounted) {
-                                    SharedServices().eraseAndGoTo(context, '/feed');
+                                    Timer(Duration(seconds: 1),()=>{
+                                      SharedServices().eraseAndGoTo(context, '/feed')
+                                    });
+
                                   }
                                 }
 

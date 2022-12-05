@@ -29,4 +29,15 @@ class UserServices {
        "x-authorization": token
      });
    }
+   getUserData(String id) async{
+     final queryParam = {
+       "id" : id
+     };
+     String token = await Environment().getToken();
+     var url = Uri.http(Environment().urlApi,'/user/getUserById', queryParam);
+     return await http.post(url, headers: {
+       "Content-Type": "application/json",
+       "x-authorization": token
+     });
+   }
 }

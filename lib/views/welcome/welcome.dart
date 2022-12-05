@@ -50,7 +50,7 @@ class WelcomePageState extends State<WelcomePage> {
         padding: const EdgeInsets.fromLTRB(24, 20, 24, 20),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("background/bgwelcome.png"),
+            image: AssetImage("assets/background/bgwelcome.png"),
             fit: BoxFit.cover,
           ),
         ),

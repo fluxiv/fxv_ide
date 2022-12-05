@@ -6,6 +6,7 @@ class UserModels {
 
   int? isPremium;
   int? terms;
+  String? photo;
 
    UserModels({
      required this.id,
@@ -13,14 +14,20 @@ class UserModels {
     required this.birthday,
     required this.email,
    this.isPremium,
-   this.terms});
+   this.terms,
+   this.photo});
 
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'birthday': birthday,
-      'email': email,
-    };
+  factory UserModels.fromJson(dynamic json){
+    return UserModels(
+        id: json['id'],
+        name: json['name'],
+        birthday: json['birthday'],
+        email: json['email'],
+        isPremium: json['isPremium'],
+        terms: json['terms'],
+        photo: json['photo'],
+
+    );
   }
 
 }
