@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:fxv_ide/models/user_models.dart';
 import 'package:fxv_ide/services/shared_services.dart';
 import 'package:fxv_ide/services/user_services.dart';
+import 'package:iconsax/iconsax.dart';
 
 class FeedContainer extends StatefulWidget{
   const FeedContainer({super.key});
@@ -85,7 +86,7 @@ class FeedContainerState extends State<FeedContainer>{
                             onPressed: () async {
                               Navigator.pop(context,'img');
                             },
-                            child: const Text('Mayber later!'),
+                            child: const Text('Maybe later!'),
                           ),
                         )
                       ],
@@ -129,7 +130,7 @@ class FeedContainerState extends State<FeedContainer>{
                                     });
                                   }
                                 },
-                                child: const Text('Choose another image')),
+                                child: const Text('Pick another one')),
                             ElevatedButton(
                                 onPressed: _cropperKey.crop,
                                 child: const Text('Save image'))
@@ -153,7 +154,28 @@ class FeedContainerState extends State<FeedContainer>{
   Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-            automaticallyImplyLeading: false
+          automaticallyImplyLeading: false,
+          leading: null,
+          toolbarTextStyle: const TextStyle(color: Color(0xff000000)),
+          backgroundColor: const Color(0xffffffff),
+          title: Padding(
+            padding: const EdgeInsets.only(left: 24),
+            child: IconButton(
+              iconSize: 100,
+              onPressed: () => Navigator.pushNamed(context, '/'),
+              icon: SizedBox(
+                width: 100,
+                child: Image.asset(
+                  "assets/logo/fxvLogo.png",
+                ),
+              ),
+            ),
+          ),
+            actions: [
+              IconButton(onPressed: null, icon: Icon(Iconsax.notification_circle1)),
+              ElevatedButton(onPressed: null, child: Text("testeteste"))
+          ],
+
         ),
         body: Row(
           children: [

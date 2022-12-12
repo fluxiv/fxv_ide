@@ -13,6 +13,13 @@ class AppTheme {
             ),
           ),
         ),
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all(
+              const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+            )
+          )
+        ),
         textTheme: FxvTheme.fxvTexts,
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(
