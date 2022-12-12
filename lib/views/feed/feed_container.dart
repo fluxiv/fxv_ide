@@ -1,8 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:cropperx/cropperx.dart';
+import 'package:crop_your_image/crop_your_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +22,14 @@ class FeedContainerState extends State<FeedContainer>{
   late Uint8List image;
   int raiseCrop = 0;
   dynamic filename;
-  final _cropperKey = GlobalKey(debugLabel: 'cropperKey');
+  //final _cropperKey = GlobalKey(debugLabel: 'cropperKey');
+  final _cropperKey = CropController();
   @override
   void initState(){
     super.initState();
     checkUser();
   }
+
   checkUser() async{
     final id = await SharedServices().getString('id');
     if(id != null && id != ''){
@@ -79,7 +80,7 @@ class FeedContainerState extends State<FeedContainer>{
                               ),
                             )
                         ),
-                        Padding(padding: EdgeInsets.symmetric(vertical: 12),
+                        Padding(padding: const EdgeInsets.symmetric(vertical: 12),
                           child: TextButton(
                             onPressed: () async {
                               Navigator.pop(context,'img');
@@ -95,15 +96,23 @@ class FeedContainerState extends State<FeedContainer>{
                       children: [
                         Padding(padding: const EdgeInsets.symmetric(vertical: 24),
                           child: SizedBox(
-                            width: 140,
-                            height: 140,
-                            child: Cropper(
-                              cropperKey: _cropperKey,
-                              image: Image.memory(image),
-                              overlayType: OverlayType.circle,
+                            width: 160,
+                            height: 160,
+                            child: Crop(
+                              controller: _cropperKey,
+                              image: image,
+                              aspectRatio: 1.0,
+                              cornerDotBuilder: (size, edgeAlignment) => const DotControl(color: Colors.blue),
+                              onCropped: (img) async {
+                                var response = await UserServices().saveProfilePicture(userData.id, img,filename);
+                                if(response.statusCode == 201 && mounted){
+                                  Navigator.pop(context,'img');
+                                }
+                              },
+
                             ),
                           ),),
-                        Padding(padding: EdgeInsets.symmetric(vertical: 12),
+                        Padding(padding: const EdgeInsets.symmetric(vertical: 12),
                         child: Row(
                           children: [
                             TextButton(
@@ -122,15 +131,8 @@ class FeedContainerState extends State<FeedContainer>{
                                 },
                                 child: const Text('Choose another image')),
                             ElevatedButton(
-                                onPressed: () async {
-                                  final imageBytes = await Cropper.crop(
-                                    cropperKey: _cropperKey, // Reference it through the key
-                                  );
-                                  File file = File.fromRawPath(imageBytes!);
-                                  var response = await UserServices().saveProfilePicture(userData.id, file,filename);
-                                 print(response.statusCode);
-                                },
-                                child: Text('Save image'))
+                                onPressed: _cropperKey.crop,
+                                child: const Text('Save image'))
                           ],
                         ),)
                       ],

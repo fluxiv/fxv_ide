@@ -41,19 +41,19 @@ class UserServices {
        "x-authorization": token
      });
    }
-   saveProfilePicture (String id,File image,dynamic filename) async{
-     var stream = http.ByteStream(DelegatingStream.typed(image.openRead()));
-     var length = await image.length();
-     print(length);
+   saveProfilePicture (String id,dynamic image,dynamic filename) async{
+     // var stream = http.ByteStream(DelegatingStream.typed(image.openRead()));
+     // var length = await image.length();
+     // print(length);
      //String token = await Environment().getToken();
-     //String extension = filename.split(".").last;
+     String extension = filename.split(".").last;
      var url = Uri.http(Environment().urlApi,'/user/uploadProfilePick');
      var req = http.MultipartRequest("POST",url);
-     var multipartFile = http.MultipartFile('photo', stream, length,
-         filename: filename);
+     // var multipartFile = http.MultipartFile('photo', stream, length,
+     //     filename: filename);
      req.fields['id'] = id;
-     req.files.add(multipartFile);
-     //req.files.add(http.MultipartFile.fromBytes('photo', image,filename: filename,contentType: MediaType("image", extension)));
+     // req.files.add(multipartFile);
+     req.files.add(http.MultipartFile.fromBytes('photo', image,filename: filename));
      return await req.send();
    }
 }
