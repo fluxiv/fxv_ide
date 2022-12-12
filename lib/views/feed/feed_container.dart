@@ -63,9 +63,49 @@ class FeedContainerState extends State<FeedContainer>{
             ),
           ),
             actions: [
-              IconButton(onPressed: null, icon: Icon(Iconsax.notification_circle1)),
-              ElevatedButton(onPressed: null, child: Text("testeteste"))
-          ],
+            Row(
+              children: [
+
+                Padding(
+                  padding:EdgeInsets.symmetric(vertical: 12, horizontal: 1),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Icon(
+                        Iconsax.notification5,
+                        color: Color(0xff555555),
+                        size: 16),
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(CircleBorder()),
+                      padding: MaterialStateProperty.all(EdgeInsets.all(8)),
+                      backgroundColor: MaterialStateProperty.all(Color(0xffffffff)), // <-- Button color
+                      overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+                        if (states.contains(MaterialState.pressed)) return Color(0xfff4f4f8); // <-- Splash color
+                      }),
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding:EdgeInsets.symmetric(vertical: 12, horizontal: 1),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Icon(
+                        Iconsax.message5,
+                        color: Color(0xff555555),
+                        size: 16),
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(CircleBorder()),
+                      padding: MaterialStateProperty.all(EdgeInsets.all(8)),
+                      backgroundColor: MaterialStateProperty.all(Color(0xffffffff)), // <-- Button color
+                      overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+                        if (states.contains(MaterialState.pressed)) return Color(0xfff4f4f8); // <-- Splash color
+                      }),
+                    ),
+                  ),
+                ),
+              ],
+            )
+            ]
 
         ),
         body: Row(
