@@ -22,7 +22,6 @@ class FeedContainerState extends State<FeedContainer>{
   int raiseCrop = 0;
   dynamic filename;
   //final _cropperKey = GlobalKey(debugLabel: 'cropperKey');
-  final _cropperKey = CropController();
   @override
   void initState(){
     super.initState();
