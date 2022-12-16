@@ -18,9 +18,11 @@ class FeedContainer extends StatefulWidget{
 
 }
 class FeedContainerState extends State<FeedContainer>{
+  String userPhoto = "/uploads/default/avatar-image.jpg";
   late Uint8List image;
   int raiseCrop = 0;
   dynamic filename;
+  late UserModels userData;
   //final _cropperKey = GlobalKey(debugLabel: 'cropperKey');
   @override
   void initState(){
@@ -33,7 +35,10 @@ class FeedContainerState extends State<FeedContainer>{
     if(id != null && id != ''){
       var response = await UserServices().getUserData(id);
       Map data = jsonDecode(response.body);
-      var userData = UserModels.fromJson(data["data"][0]);
+      userData = UserModels.fromJson(data["data"][0]);
+      setState(() {
+        userPhoto = userData.photo!;
+      });
       if(userData.photo == null || userData.photo == ''){
         showDialog(context: context, builder: (BuildContext context) => ImageCropper(userData:userData));
       }
@@ -93,6 +98,22 @@ class FeedContainerState extends State<FeedContainer>{
                         Iconsax.message5,
                         color: Color(0xff555555),
                         size: 16),
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(CircleBorder()),
+                      padding: MaterialStateProperty.all(EdgeInsets.all(8)),
+                      backgroundColor: MaterialStateProperty.all(Color(0xffffffff)), // <-- Button color
+                      overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+                        if (states.contains(MaterialState.pressed)) return Color(0xfff4f4f8); // <-- Splash color
+                      }),
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding:EdgeInsets.symmetric(vertical: 12, horizontal: 1),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Image.network("http://localhost:4040/getImage?photo=${userPhoto}"),
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(CircleBorder()),
                       padding: MaterialStateProperty.all(EdgeInsets.all(8)),
