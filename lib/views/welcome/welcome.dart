@@ -27,7 +27,6 @@ class WelcomePageState extends State<WelcomePage> {
         leading: null,
         toolbarTextStyle: const TextStyle(color: Color(0xff000000)),
         backgroundColor: const Color(0xffffffff),
-
         title: Padding(
           padding: const EdgeInsets.only(left: 24),
           child: IconButton(
@@ -68,11 +67,11 @@ class WelcomePageState extends State<WelcomePage> {
                   page = const SignUp();
                   break;
                 case '/sign-in':
-                  page = const SignIn();
+                  page = SignIn();
                   break;
                 default:
                   Navigator.popAndPushNamed(context, settings.name!);
-                  //Navigator.pop(context);
+                //Navigator.pop(context);
               }
 
               return PageRouteBuilder(
