@@ -6,6 +6,7 @@ import 'package:fxv_ide/components/crop_image.dart';
 import 'package:fxv_ide/models/user_models.dart';
 import 'package:fxv_ide/services/shared_services.dart';
 import 'package:fxv_ide/services/user_services.dart';
+import 'package:fxv_ide/views/feed/feed_publish.dart';
 import 'package:iconsax/iconsax.dart';
 
 class FeedContainer extends StatefulWidget {
@@ -140,7 +141,11 @@ class FeedContainerState extends State<FeedContainer> {
           // if(raiseCrop == 1)
           // CropImage(image: image),
           Expanded(flex: 3, child: Container(color: Colors.red)),
-          Expanded(flex: 4, child: Container(color: Colors.blue)),
+          Expanded(flex: 4, child: Column(
+            children:[
+              FeedPublish()
+            ]
+          )),
           Expanded(flex: 3, child: Container(color: Colors.red)),
         ],
       ),
