@@ -28,26 +28,31 @@ class FeedPublishState extends State<FeedPublish>{
         ),
           borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
-      child: ElevatedButton(
-        onPressed: () {},
-        child: Image.network(
-            "http://localhost:4040/getImage?photo=${userPhoto}"),
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all(CircleBorder()),
-          padding: MaterialStateProperty.all(EdgeInsets.all(8)),
-          backgroundColor: MaterialStateProperty.all(
-              Color(0xffffffff)), // <-- Button color
-          overlayColor:
-          MaterialStateProperty.resolveWith<Color?>((states) {
-            if (states.contains(MaterialState.pressed))
-              return Color(0xfff4f4f8); // <-- Splash color
-          }),
-        ),
-      ),
       width: 5000,
       height: 100,
       margin: const EdgeInsets.all(10.0),
       alignment: Alignment.topCenter,
+        child: Row(
+          children: [
+            Padding(padding: EdgeInsets.only(right: 8.0),
+            child: Image.network(
+        "http://localhost:4040/getImage?photo=${userPhoto}"),),
+            TextFormField(
+                decoration: const InputDecoration(
+                  hintText: 'What do you want to say today?',
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(7),
+                          topRight: Radius.circular(8),
+                          bottomLeft: Radius.circular(8),
+                          bottomRight: Radius.circular(7)),
+                      borderSide: BorderSide(color: Color(0xffDBDBDB), width: 100)),
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(15),
+                ),
+              ),
+          ],
+        ),
     );
   }
 
