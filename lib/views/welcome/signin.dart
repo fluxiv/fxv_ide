@@ -100,16 +100,16 @@ class _MyFormLoginState extends State<MyFormLogin> {
   }
 
   Login() async {
-    print('TESTEKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKHIHIHI');
+    //print('TESTEKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKHIHIHI');
     // focusNode.hasFocus;
     var finalValues = {};
     //var finalValues = UserModels(name: name, birthday: birthday, email: email, password: password);
     //_formKey.currentState?.save(),
     for (var value in formValues) {
-      finalValues[value.fieldName] = value.value;
+      finalValues[value.fieldName] = value.value.trim();
     }
     var response = await UserServices().loginUser(finalValues);
-    print(response);
+    //print(response);
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       var userModels = UserModels(
