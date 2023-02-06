@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fxv_ide/models/user_models.dart';
+import 'package:fxv_ide/views/feed/feed_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedServices{
@@ -15,5 +17,9 @@ class SharedServices{
   }
   eraseAndGoTo(context,route){
     Navigator.popAndPushNamed(context, route);
+  }
+  goWithParams(context,route,UserModels params){
+    print(params);
+    Navigator.of(context).popAndPushNamed('/feed',arguments:params);
   }
 }

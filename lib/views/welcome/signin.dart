@@ -128,8 +128,7 @@ class _MyFormLoginState extends State<MyFormLogin> {
         }
       } else {
         if (mounted) {
-          Timer(Duration(seconds: 1),
-              () => {SharedServices().eraseAndGoTo(context, '/feed')});
+          SharedServices().goWithParams(context, '/feed',userModels);
         }
       }
 

@@ -8,17 +8,29 @@ import 'package:fxv_ide/services/shared_services.dart';
 import 'package:fxv_ide/services/user_services.dart';
 import 'package:fxv_ide/views/feed/feed_publish.dart';
 import 'package:iconsax/iconsax.dart';
-
-class FeedContainer extends StatefulWidget {
+class FeedContainer extends StatelessWidget {
   const FeedContainer({super.key});
 
   @override
+  Widget build(BuildContext context) {
+    dynamic userData = ModalRoute.of(context)?.settings.arguments;
+    // TODO: implement build
+    return FeedContainerState(userData:userData);
+  }
+
+}
+class FeedContainerState extends StatefulWidget {
+  final UserModels? userData;
+  const FeedContainerState({super.key,this.userData});
+
+
+  @override
   State<StatefulWidget> createState() {
-    return FeedContainerState();
+    return _FeedContainerState();
   }
 }
 
-class FeedContainerState extends State<FeedContainer> {
+class _FeedContainerState extends State<FeedContainerState> {
   String userPhoto = "/uploads/default/avatar-image.jpg";
   late Uint8List image;
   int raiseCrop = 0;
@@ -32,7 +44,7 @@ class FeedContainerState extends State<FeedContainer> {
   }
 
   checkUser() async {
-    final id = await SharedServices().getString('id');
+    String? id = widget.userData?.id != null ? widget.userData?.id != null : await SharedServices().getString('id');
     // final String id = "1";
     if (id != null && id != '') {
       var response = await UserServices().getUserData(id);
@@ -53,6 +65,7 @@ class FeedContainerState extends State<FeedContainer> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
