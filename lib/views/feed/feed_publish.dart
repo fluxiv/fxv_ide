@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:fxv_ide/models/user_models.dart';
+import 'package:fxv_ide/components/feed_publish_modal.dart';
 import 'package:iconsax/iconsax.dart';
 
 
@@ -44,7 +45,9 @@ class FeedPublishState extends State<FeedPublish>{
                 Expanded(
                   child: TextFormField(
                     onTap: () => {
-
+                    showDialog(
+                    context: context,
+                    builder: (BuildContext context) => FeedPublishModal(userData: userData))
                     },
                     decoration: const InputDecoration(
                       hintText: 'What do you want to say today?',
