@@ -128,7 +128,7 @@ class _MyFormLoginState extends State<MyFormLogin> {
         }
       } else {
         if (mounted) {
-          SharedServices().goWithParams(context, '/feed',userModels);
+          SharedServices().goWithParams(context, '/feed',userModels.id);
         }
       }
 

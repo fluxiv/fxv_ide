@@ -18,8 +18,7 @@ class SharedServices{
   eraseAndGoTo(context,route){
     Navigator.popAndPushNamed(context, route);
   }
-  goWithParams(context,route,UserModels params){
-    print(params);
+  goWithParams(context,route,dynamic params){
     Navigator.of(context).popAndPushNamed('/feed',arguments:params);
   }
 }

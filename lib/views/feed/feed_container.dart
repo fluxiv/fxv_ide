@@ -13,15 +13,15 @@ class FeedContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    dynamic userData = ModalRoute.of(context)?.settings.arguments;
+    final id = ModalRoute.of(context)?.settings.arguments;
     // TODO: implement build
-    return FeedContainerState(userData:userData);
+    return FeedContainerState(id:id);
   }
 
 }
 class FeedContainerState extends StatefulWidget {
-  final UserModels? userData;
-  const FeedContainerState({super.key,this.userData});
+  final dynamic id;
+  const FeedContainerState({super.key,this.id});
 
 
   @override
@@ -44,8 +44,9 @@ class _FeedContainerState extends State<FeedContainerState> {
   }
 
   checkUser() async {
-    String? id = widget.userData?.id != null ? widget.userData?.id != null : await SharedServices().getString('id');
+    String? id = widget.id != null ? widget.id != null : await SharedServices().getString('id');
     // final String id = "1";
+    print(id);
     if (id != null && id != '') {
       var response = await UserServices().getUserData(id);
       Map data = jsonDecode(response.body);
