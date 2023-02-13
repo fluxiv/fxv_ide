@@ -9,9 +9,9 @@ import 'package:fxv_ide/services/user_services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class FeedPublishModal extends StatefulWidget {
-  UserModels userData;
+  String userid;
 
-  FeedPublishModal({super.key, required this.userData});
+  FeedPublishModal({super.key, required this.userid});
 
   @override
   State<StatefulWidget> createState() {
@@ -25,7 +25,6 @@ class _FeedPublishModal extends State<FeedPublishModal> {
   bool progress = false;
   dynamic image;
   String? filename;
-  final _cropperKey = CropController();
 
   @override
   Widget build(BuildContext context) {
@@ -100,60 +99,6 @@ class _FeedPublishModal extends State<FeedPublishModal> {
                       )
                     ],
                   ),
-                if (raiseCrop == 1)
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 24),
-                        child: SizedBox(
-                          width: 160,
-                          height: 160,
-                          child: Crop(
-                            controller: _cropperKey,
-                            image: image,
-                            aspectRatio: 1.0,
-                            cornerDotBuilder: (size, edgeAlignment) =>
-                            const DotControl(color: Colors.blue),
-                            onCropped: (img) async {
-                              var response = await UserServices()
-                                  .saveProfilePicture(
-                                  widget.userData.id, img, filename);
-                              if (response.statusCode == 201 && mounted) {
-                                Navigator.pop(context, 'img');
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        child: Row(
-                          children: [
-                            TextButton(
-                                onPressed: () async {
-                                  FilePickerResult? result = await FilePicker
-                                      .platform
-                                      .pickFiles(type: FileType.image);
-                                  if (result != null) {
-                                    filename = result.files.single.name;
-                                    setState(() {
-                                      image = result.files.first.bytes!;
-                                    });
-                                  } else {
-                                    setState(() {
-                                      raiseCrop = 0;
-                                    });
-                                  }
-                                },
-                                child: const Text('Pick another one')),
-                            ElevatedButton(
-                                onPressed: _cropperKey.crop,
-                                child: const Text('Save image'))
-                          ],
-                        ),
-                      )
-                    ],
-                  )
               ],
             );
           }),

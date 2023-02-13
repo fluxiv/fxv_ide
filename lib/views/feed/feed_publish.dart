@@ -47,7 +47,7 @@ class FeedPublishState extends State<FeedPublish>{
                     onTap: () => {
                     showDialog(
                     context: context,
-                    builder: (BuildContext context) => FeedPublishModal(userData: userData))
+                    builder: (BuildContext context) => FeedPublishModal(userid: userData.id))
                     },
                     decoration: const InputDecoration(
                       hintText: 'What do you want to say today?',
