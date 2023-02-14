@@ -9,7 +9,7 @@ import 'package:fxv_ide/services/user_services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class FeedPublishModal extends StatefulWidget {
-  String userid;
+  String? userid;
 
   FeedPublishModal({super.key, required this.userid});
 

@@ -7,6 +7,9 @@ import 'package:iconsax/iconsax.dart';
 
 
 class FeedPublish extends StatefulWidget{
+  final String userId;
+  const FeedPublish({super.key,required this.userId});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -19,7 +22,7 @@ class FeedPublishState extends State<FeedPublish>{
   late Uint8List image;
   int raiseCrop = 0;
   dynamic filename;
-  late UserModels userData;
+  UserModels? userData;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -39,7 +42,7 @@ class FeedPublishState extends State<FeedPublish>{
               children: [
                 Padding(padding: EdgeInsets.only(right: 8.0),
                     child: Image.network(
-                      "http://localhost:4040/getImage?photo=${userPhoto}",
+                      "http://localhost:4040/user/getImage?photo=${userPhoto}",
                       width: 36,
                       height: 36,)),
                 Expanded(
@@ -47,7 +50,7 @@ class FeedPublishState extends State<FeedPublish>{
                     onTap: () => {
                     showDialog(
                     context: context,
-                    builder: (BuildContext context) => FeedPublishModal(userid: userData.id))
+                    builder: (BuildContext context) => FeedPublishModal(userid: widget.userId))
                     },
                     decoration: const InputDecoration(
                       hintText: 'What do you want to say today?',

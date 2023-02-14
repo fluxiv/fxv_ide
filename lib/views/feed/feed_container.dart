@@ -13,7 +13,8 @@ class FeedContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final id = ModalRoute.of(context)?.settings.arguments;
+      dynamic id = ModalRoute.of(context)?.settings.arguments;
+
     // TODO: implement build
     return FeedContainerState(id:id);
   }
@@ -35,7 +36,8 @@ class _FeedContainerState extends State<FeedContainerState> {
   late Uint8List image;
   int raiseCrop = 0;
   dynamic filename;
-  late UserModels userData;
+  UserModels? userData;
+  String userId = '';
   //final _cropperKey = GlobalKey(debugLabel: 'cropperKey');
   @override
   void initState() {
@@ -44,21 +46,17 @@ class _FeedContainerState extends State<FeedContainerState> {
   }
 
   checkUser() async {
-    String? id = widget.id != null ? widget.id != null : await SharedServices().getString('id');
+    String? id = widget.id ?? await SharedServices().getString('id');
     // final String id = "1";
     print(id);
     if (id != null && id != '') {
+      userId = id;
       var response = await UserServices().getUserData(id);
       Map data = jsonDecode(response.body);
       userData = UserModels.fromJson(data["data"][0]);
-      // setState(() {
-      //   userPhoto = userData.photo!;
-      // });
-      // if (userData.photo == null || userData.photo == '') {
       showDialog(
           context: context,
-          builder: (BuildContext context) => ImageCropper(userData: userData));
-      // }
+          builder: (BuildContext context) => ImageCropper(userData: userData!));
     } else {
       print('user not logged id');
     }
@@ -94,57 +92,63 @@ class _FeedContainerState extends State<FeedContainerState> {
                       const EdgeInsets.symmetric(vertical: 12, horizontal: 1),
                   child: ElevatedButton(
                     onPressed: () {},
-                    child: Icon(Iconsax.notification5,
-                        color: Color(0xff555555), size: 16),
                     style: ButtonStyle(
-                      shape: MaterialStateProperty.all(CircleBorder()),
-                      padding: MaterialStateProperty.all(EdgeInsets.all(8)),
+                      shape: MaterialStateProperty.all(const CircleBorder()),
+                      padding: MaterialStateProperty.all(const EdgeInsets.all(8)),
                       backgroundColor: MaterialStateProperty.all(
-                          Color(0xffffffff)), // <-- Button color
+                          const Color(0xffffffff)), // <-- Button color
                       overlayColor:
                           MaterialStateProperty.resolveWith<Color?>((states) {
-                        if (states.contains(MaterialState.pressed))
-                          return Color(0xfff4f4f8); // <-- Splash color
+                        if (states.contains(MaterialState.pressed)) {
+                          return const Color(0xfff4f4f8);
+                        }
+                        return null; // <-- Splash color
                       }),
                     ),
+                    child:  const Icon( Iconsax.notification5,
+                        color: Color(0xff555555), size: 16),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 1),
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 1),
                   child: ElevatedButton(
                     onPressed: () {},
-                    child: Icon(Iconsax.message5,
-                        color: Color(0xff555555), size: 16),
                     style: ButtonStyle(
-                      shape: MaterialStateProperty.all(CircleBorder()),
-                      padding: MaterialStateProperty.all(EdgeInsets.all(8)),
+                      shape: MaterialStateProperty.all(const CircleBorder()),
+                      padding: MaterialStateProperty.all(const EdgeInsets.all(8)),
                       backgroundColor: MaterialStateProperty.all(
-                          Color(0xffffffff)), // <-- Button color
+                          const Color(0xffffffff)), // <-- Button color
                       overlayColor:
                           MaterialStateProperty.resolveWith<Color?>((states) {
-                        if (states.contains(MaterialState.pressed))
-                          return Color(0xfff4f4f8); // <-- Splash color
+                        if (states.contains(MaterialState.pressed)) {
+                          return const Color(0xfff4f4f8);
+                        }
+                        return null; // <-- Splash color
                       }),
                     ),
+                    child: const Icon(Iconsax.message5,
+                        color: Color(0xff555555), size: 16),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 1),
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 1),
                   child: ElevatedButton(
                     onPressed: () {},
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(const CircleBorder()),
+                      padding: MaterialStateProperty.all(const EdgeInsets.all(8)),
+                      backgroundColor: MaterialStateProperty.all(
+                          const Color(0xffffffff)), // <-- Button color
+                      overlayColor:
+                          MaterialStateProperty.resolveWith<Color?>((states) {
+                        if (states.contains(MaterialState.pressed)) {
+                          return const Color(0xfff4f4f8);
+                        }
+                        return null; // <-- Splash color
+                      }),
+                    ),
                     child: Image.network(
-                        "http://localhost:4040/getImage?photo=${userPhoto}"),
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(CircleBorder()),
-                      padding: MaterialStateProperty.all(EdgeInsets.all(8)),
-                      backgroundColor: MaterialStateProperty.all(
-                          Color(0xffffffff)), // <-- Button color
-                      overlayColor:
-                          MaterialStateProperty.resolveWith<Color?>((states) {
-                        if (states.contains(MaterialState.pressed))
-                          return Color(0xfff4f4f8); // <-- Splash color
-                      }),
-                    ),
+                        "http://localhost:4040/user/getImage?photo=$userPhoto"),
                   ),
                 ),
               ],
@@ -157,7 +161,10 @@ class _FeedContainerState extends State<FeedContainerState> {
           Expanded(flex: 3, child: Container(color: Colors.red)),
           Expanded(flex: 4, child: Column(
             children:[
-              FeedPublish()
+              Visibility(
+                child: FeedPublish(userId: userId),
+              )
+
             ]
           )),
           Expanded(flex: 3, child: Container(color: Colors.red)),
