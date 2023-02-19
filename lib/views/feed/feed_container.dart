@@ -89,67 +89,16 @@ class _FeedContainerState extends State<FeedContainerState> {
               children: [
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 12, horizontal: 1),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(const CircleBorder()),
-                      padding: MaterialStateProperty.all(const EdgeInsets.all(8)),
-                      backgroundColor: MaterialStateProperty.all(
-                          const Color(0xffffffff)), // <-- Button color
-                      overlayColor:
-                          MaterialStateProperty.resolveWith<Color?>((states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          return const Color(0xfff4f4f8);
-                        }
-                        return null; // <-- Splash color
-                      }),
-                    ),
-                    child:  const Icon( Iconsax.notification5,
-                        color: Color(0xff555555), size: 16),
-                  ),
+                      const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
+                  child: IconButton(onPressed: () => {}, icon: Icon(Iconsax.notification5))
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 1),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(const CircleBorder()),
-                      padding: MaterialStateProperty.all(const EdgeInsets.all(8)),
-                      backgroundColor: MaterialStateProperty.all(
-                          const Color(0xffffffff)), // <-- Button color
-                      overlayColor:
-                          MaterialStateProperty.resolveWith<Color?>((states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          return const Color(0xfff4f4f8);
-                        }
-                        return null; // <-- Splash color
-                      }),
-                    ),
-                    child: const Icon(Iconsax.message5,
-                        color: Color(0xff555555), size: 16),
-                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
+                  child: IconButton(onPressed: () => {}, icon: Icon(Iconsax.message5))
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 1),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(const CircleBorder()),
-                      padding: MaterialStateProperty.all(const EdgeInsets.all(8)),
-                      backgroundColor: MaterialStateProperty.all(
-                          const Color(0xffffffff)), // <-- Button color
-                      overlayColor:
-                          MaterialStateProperty.resolveWith<Color?>((states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          return const Color(0xfff4f4f8);
-                        }
-                        return null; // <-- Splash color
-                      }),
-                    ),
-                    child: Image.network(
-                        "http://localhost:4040/user/getImage?photo=$userPhoto"),
-                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
+                  child: IconButton(onPressed: () => {}, icon: Icon(null)),
                 ),
               ],
             )
