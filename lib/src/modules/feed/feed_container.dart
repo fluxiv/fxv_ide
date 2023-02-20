@@ -2,28 +2,28 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:fxv_ide/components/crop_image.dart';
-import 'package:fxv_ide/models/user_models.dart';
-import 'package:fxv_ide/services/shared_services.dart';
-import 'package:fxv_ide/services/user_services.dart';
-import 'package:fxv_ide/views/feed/feed_publish.dart';
+import 'package:fxv_ide/src/modules/feed/widgets/crop_image.dart';
+import 'package:fxv_ide/src/models/user_models.dart';
+import 'package:fxv_ide/src/services/shared_services.dart';
+import 'package:fxv_ide/src/services/user_services.dart';
+import 'package:fxv_ide/src/modules/feed/feed_publish.dart';
 import 'package:iconsax/iconsax.dart';
+
 class FeedContainer extends StatelessWidget {
   const FeedContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
-      dynamic id = ModalRoute.of(context)?.settings.arguments;
+    dynamic id = ModalRoute.of(context)?.settings.arguments;
 
     // TODO: implement build
-    return FeedContainerState(id:id);
+    return FeedContainerState(id: id);
   }
-
 }
+
 class FeedContainerState extends StatefulWidget {
   final dynamic id;
-  const FeedContainerState({super.key,this.id});
-
+  const FeedContainerState({super.key, this.id});
 
   @override
   State<StatefulWidget> createState() {
@@ -64,7 +64,6 @@ class _FeedContainerState extends State<FeedContainerState> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -88,16 +87,19 @@ class _FeedContainerState extends State<FeedContainerState> {
             Row(
               children: [
                 Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
+                    child: IconButton(
+                        onPressed: () => {},
+                        icon: Icon(Iconsax.notification5))),
+                Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
+                    child: IconButton(
+                        onPressed: () => {}, icon: Icon(Iconsax.message5))),
+                Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
-                  child: IconButton(onPressed: () => {}, icon: Icon(Iconsax.notification5))
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
-                  child: IconButton(onPressed: () => {}, icon: Icon(Iconsax.message5))
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
                   child: IconButton(onPressed: () => {}, icon: Icon(null)),
                 ),
               ],
@@ -108,14 +110,13 @@ class _FeedContainerState extends State<FeedContainerState> {
           // if(raiseCrop == 1)
           // CropImage(image: image),
           Expanded(flex: 3, child: Container(color: Colors.red)),
-          Expanded(flex: 4, child: Column(
-            children:[
-              Visibility(
-                child: FeedPublish(userId: userId),
-              )
-
-            ]
-          )),
+          Expanded(
+              flex: 4,
+              child: Column(children: [
+                Visibility(
+                  child: FeedPublish(userId: userId),
+                )
+              ])),
           Expanded(flex: 3, child: Container(color: Colors.red)),
         ],
       ),

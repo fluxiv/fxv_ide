@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fxv_ide/views/welcome/signup.dart';
-import 'package:fxv_ide/views/welcome/signin.dart';
-import 'package:fxv_ide/views/welcome/welcome_card.dart';
+import 'package:fxv_ide/src/modules/welcome/signin.dart';
+import 'package:fxv_ide/src/modules/welcome/signup.dart';
+import 'package:fxv_ide/src/modules/welcome/welcome_card.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);

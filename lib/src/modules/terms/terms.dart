@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fxv_ide/services/shared_services.dart';
 import 'package:fxv_ide/theme.dart';
-import 'package:fxv_ide/services/user_services.dart';
+import 'package:fxv_ide/src/services/user_services.dart';
+import 'package:fxv_ide/src/services/shared_services.dart';
 
 class Terms extends StatelessWidget {
   const Terms({super.key});

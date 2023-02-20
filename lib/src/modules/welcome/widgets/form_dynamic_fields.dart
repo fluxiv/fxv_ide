@@ -52,9 +52,9 @@ class FormDynamicState extends State<FormDynamicFields> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 1), () {
-      setState(() {
-        widget.changeFormState(0, widget.fieldName, '');
-      });
+      // setState(() {
+      widget.changeFormState(0, widget.fieldName, '');
+      // });
     });
   }
 
@@ -110,15 +110,15 @@ class FormDynamicState extends State<FormDynamicFields> {
           },
           onChanged: (value) {
             if (value.isEmpty || value.length < 3) {
-              setState(() {
-                hasError = true;
-                widget.changeFormState(0, widget.fieldName, value);
-              });
+              // setState(() {
+              hasError = true;
+              widget.changeFormState(0, widget.fieldName, value);
+              // });
             } else {
-              setState(() {
-                hasError = false;
-                widget.changeFormState(2, widget.fieldName, value);
-              });
+              // setState(() {
+              hasError = false;
+              widget.changeFormState(2, widget.fieldName, value);
+              // });
             }
           },
           decoration: FormInputDecoration(
@@ -138,10 +138,10 @@ class FormDynamicState extends State<FormDynamicFields> {
               // widget.functionLogin();
               String value = _fieldController.value.text;
               if (value.isEmpty || !isEmail(value)) {
-                setState(() {
-                  hasError = true;
-                  widget.changeFormState(1, widget.fieldName, value);
-                });
+                // setState(() {
+                hasError = true;
+                widget.changeFormState(1, widget.fieldName, value);
+                // });
               }
             }
           },
@@ -149,10 +149,10 @@ class FormDynamicState extends State<FormDynamicFields> {
             controller: _fieldController,
             onChanged: (value) {
               if (value.isEmpty || !isEmail(value)) {
-                setState(() {
-                  hasError = false;
-                  widget.changeFormState(0, widget.fieldName, value);
-                });
+                // setState(() {
+                hasError = false;
+                widget.changeFormState(0, widget.fieldName, value);
+                // });
               } else {
                 hasError = false;
                 widget.changeFormState(2, widget.fieldName, value);
@@ -182,31 +182,31 @@ class FormDynamicState extends State<FormDynamicFields> {
                   if (passwordUpperLowerError != 2 ||
                       passwordSpecialNumberError != 2 ||
                       passwordLengthError != 2) {
-                    setState(() {
-                      hasError = true;
-                      widget.changeFormState(1, widget.fieldName, value);
-                    });
+                    // setState(() {
+                    hasError = true;
+                    widget.changeFormState(1, widget.fieldName, value);
+                    // });
                   } else if (passwordUpperLowerError == 2 &&
                       passwordSpecialNumberError == 2 &&
                       passwordLengthError == 2) {
-                    setState(() {
-                      hasError = false;
-                      widget.changeFormState(2, widget.fieldName, value);
-                    });
+                    // setState(() {
+                    hasError = false;
+                    widget.changeFormState(2, widget.fieldName, value);
+                    // });
                   }
                 } else if (!focus &&
                     !widget.showPassArgs &&
                     widget.fieldRef == null) {
                   if (value.isNotEmpty) {
-                    setState(() {
-                      hasError = false;
-                      widget.changeFormState(2, widget.fieldName, value);
-                    });
+                    // setState(() {
+                    hasError = false;
+                    widget.changeFormState(2, widget.fieldName, value);
+                    // });
                   } else {
-                    setState(() {
-                      hasError = true;
-                      widget.changeFormState(1, widget.fieldName, value);
-                    });
+                    // setState(() {
+                    hasError = true;
+                    widget.changeFormState(1, widget.fieldName, value);
+                    // });
                   }
                 }
               },
@@ -219,58 +219,58 @@ class FormDynamicState extends State<FormDynamicFields> {
                 onChanged: (value) {
                   //var regExp = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
                   if (value.length < 8) {
-                    setState(() {
-                      passwordLengthError = 1;
-                    });
+                    // setState(() {
+                    passwordLengthError = 1;
+                    // });
                   } else {
-                    setState(() {
-                      passwordLengthError = 2;
-                    });
+                    // setState(() {
+                    passwordLengthError = 2;
+                    // });
                   }
 
                   if (RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])').hasMatch(value)) {
-                    setState(() {
-                      passwordUpperLowerError = 2;
-                    });
+                    // setState(() {
+                    passwordUpperLowerError = 2;
+                    // });
                   } else {
                     passwordUpperLowerError = 1;
                   }
 
                   if (RegExp(r'^(?=.*?[0-9])(?=.*[!@#$&*])').hasMatch(value)) {
-                    setState(() {
-                      passwordSpecialNumberError = 2;
-                    });
+                    // setState(() {
+                    passwordSpecialNumberError = 2;
+                    // });
                   } else {
-                    setState(() {
-                      passwordSpecialNumberError = 1;
-                    });
+                    // setState(() {
+                    passwordSpecialNumberError = 1;
+                    // });
                   }
                   if (widget.fieldRef != null) {
                     var index = widget.formRef
                         .indexWhere((v) => v.fieldName == widget.fieldRef);
                     dynamic refValue = widget.formRef[index].value;
                     if (value.length < refValue.length) {
-                      setState(() {
-                        hasError = false;
-                        widget.changeFormState(0, widget.fieldName, value);
-                      });
+                      // setState(() {
+                      hasError = false;
+                      widget.changeFormState(0, widget.fieldName, value);
+                      // });
                     } else if (value.length == refValue.length) {
                       if (value == refValue) {
-                        setState(() {
-                          hasError = false;
-                          widget.changeFormState(2, widget.fieldName, value);
-                        });
+                        // setState(() {
+                        hasError = false;
+                        widget.changeFormState(2, widget.fieldName, value);
+                        // });
                       } else {
-                        setState(() {
-                          hasError = true;
-                          widget.changeFormState(1, widget.fieldName, value);
-                        });
-                      }
-                    } else if (value.length > refValue.length) {
-                      setState(() {
+                        // setState(() {
                         hasError = true;
                         widget.changeFormState(1, widget.fieldName, value);
-                      });
+                        // });
+                      }
+                    } else if (value.length > refValue.length) {
+                      // setState(() {
+                      hasError = true;
+                      widget.changeFormState(1, widget.fieldName, value);
+                      // });
                     }
                   }
                 },
@@ -400,15 +400,15 @@ class FormDynamicState extends State<FormDynamicFields> {
                   r'^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$';
               RegExp regExp = RegExp(pattern);
               if (value.isEmpty || !regExp.hasMatch(value)) {
-                setState(() {
-                  hasError = true;
-                  widget.changeFormState(1, widget.fieldName, value);
-                });
+                // setState(() {
+                hasError = true;
+                widget.changeFormState(1, widget.fieldName, value);
+                // });
               } else {
-                setState(() {
-                  hasError = false;
-                  widget.changeFormState(2, widget.fieldName, value);
-                });
+                // setState(() {
+                hasError = false;
+                widget.changeFormState(2, widget.fieldName, value);
+                // });
               }
             }
           },
