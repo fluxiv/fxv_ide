@@ -98,7 +98,7 @@ class _FeedContainerState extends State<FeedContainerState> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
-                  child: IconButton(onPressed: () => {}, icon: Icon(null)),
+                  child: IconButton(onPressed: () => {}, icon: Image.network('http://localhost:4040/user/getImage?photo=${userPhoto}')),
                 ),
               ],
             )
