@@ -34,7 +34,7 @@ class _FeedPublishModal extends State<FeedPublishModal> {
   late Uint8List image;
   int raiseCrop = 0;
   dynamic filename;
-  UserModels? userData;
+  late UserModels userData;
   List<String> items = ['Item 1', 'Item 2', 'Item 3'];
   String selectedItem = 'Item 1';
 
@@ -45,11 +45,12 @@ class _FeedPublishModal extends State<FeedPublishModal> {
   }
   getUserData () async {
 
-    if(widget.userid != null && widget.userid != ''){
       var response = await UserServices().getUserData(widget.userid!);
       Map data = jsonDecode(response.body);
-      userData = UserModels.fromJson(data["data"][0]);
-    }
+      setState(() {
+        userData = UserModels.fromJson(data["data"][0]);
+      });
+
   }
 
 
@@ -79,7 +80,7 @@ class _FeedPublishModal extends State<FeedPublishModal> {
                             "http://localhost:4040/user/getImage?photo=${userPhoto}",
                             width: 36,
                             height: 36,)),
-                      Text(userData != null ? userData!.name : ''),
+                      Text(userData.name),
                       // DropdownButton<String>(
                       //   value: selectedItem,
                       //   items: items.map((String item) {

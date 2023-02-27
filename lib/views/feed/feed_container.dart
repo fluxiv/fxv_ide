@@ -48,9 +48,12 @@ class _FeedContainerState extends State<FeedContainerState> {
   checkUser() async {
     String? id = widget.id ?? await SharedServices().getString('id');
     // final String id = "1";
-    print(id);
     if (id != null && id != '') {
-      userId = id;
+      setState(() {
+        userId = id;
+      });
+
+      print("userId: $userId");
       var response = await UserServices().getUserData(id);
       Map data = jsonDecode(response.body);
       userData = UserModels.fromJson(data["data"][0]);
@@ -112,6 +115,7 @@ class _FeedContainerState extends State<FeedContainerState> {
             children:[
               Visibility(
                 child: FeedPublish(userId: userId),
+                visible: userId != '',
               )
 
             ]
