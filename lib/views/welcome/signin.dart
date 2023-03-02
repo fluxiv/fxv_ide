@@ -7,6 +7,7 @@ import 'package:fxv_ide/components/form_dynamic_fields.dart';
 import 'package:fxv_ide/models/user_models.dart';
 import 'package:fxv_ide/services/shared_services.dart';
 import 'package:fxv_ide/services/user_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginIntent extends Intent {}
 
@@ -120,8 +121,9 @@ class _MyFormLoginState extends State<MyFormLogin> {
           isPremium: body['data']['isPremium'],
           terms: body['data']['terms']);
       String token = body['token'];
-      SharedServices().saveString('id', userModels.id);
-      SharedServices().saveString('token', token);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('id', userModels.id);
+      prefs.setString('token', token);
       if (userModels.terms == 0) {
         if (mounted) {
           SharedServices().eraseAndGoTo(context, '/terms');

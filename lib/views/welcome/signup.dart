@@ -7,6 +7,7 @@ import 'package:fxv_ide/components/form_dynamic_fields.dart';
 import 'package:fxv_ide/models/user_models.dart';
 import 'package:fxv_ide/services/shared_services.dart';
 import 'package:fxv_ide/services/user_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:fxv_ide/modals/country.dart';
 // import 'package:http/http.dart' as http;
 
@@ -118,8 +119,9 @@ class MyFormState extends State<MyForm> {
     print(response);
     if (response.statusCode == 201) {
       final body = json.decode(response.body);
-      SharedServices().saveString('id', body['id']);
-      SharedServices().saveString('token', body['token']);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('id', body['id']);
+      prefs.setString('token', body['token']);
       if (mounted) {
         Navigator.popAndPushNamed(context, '/terms');
       }

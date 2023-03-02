@@ -8,6 +8,7 @@ import 'package:fxv_ide/services/shared_services.dart';
 import 'package:fxv_ide/services/user_services.dart';
 import 'package:fxv_ide/views/feed/feed_publish.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class FeedContainer extends StatelessWidget {
   const FeedContainer({super.key});
 
@@ -46,23 +47,23 @@ class _FeedContainerState extends State<FeedContainerState> {
   }
 
   checkUser() async {
-    String? id = widget.id ?? await SharedServices().getString('id');
-    // final String id = "1";
-    if (id != null && id != '') {
-      setState(() {
-        userId = id;
-      });
 
-      print("userId: $userId");
-      var response = await UserServices().getUserData(id);
-      Map data = jsonDecode(response.body);
-      userData = UserModels.fromJson(data["data"][0]);
-      showDialog(
-          context: context,
-          builder: (BuildContext context) => ImageCropper(userData: userData!));
-    } else {
-      print('user not logged id');
-    }
+    dynamic id = await SharedServices().getString('id');
+      if (id != null && id != '') {
+        setState(() {
+          userId = id;
+        });
+        print(userId);
+        var response = await UserServices().getUserData(id);
+        Map data = jsonDecode(response.body);
+        userData = UserModels.fromJson(data["data"][0]);
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => ImageCropper(userData: userData!));
+      } else {
+        print('user not logged id');
+      }
+    // final String id = "1";
   }
 
   @override
