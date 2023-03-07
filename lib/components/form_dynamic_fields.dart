@@ -104,6 +104,7 @@ class FormDynamicState extends State<FormDynamicFields> {
     switch (widget.fieldType) {
       case 'text':
         return TextFormField(
+          focusNode: myFocusNode2,
           controller: _fieldController,
           onTap: () {
             myFocusNode2.requestFocus();
@@ -147,6 +148,10 @@ class FormDynamicState extends State<FormDynamicFields> {
           },
           child: TextFormField(
             controller: _fieldController,
+            focusNode: myFocusNode2,
+            onTap: () {
+              myFocusNode2.requestFocus();
+            },
             onChanged: (value) {
               if (value.isEmpty || !isEmail(value)) {
                 setState(() {
@@ -176,7 +181,7 @@ class FormDynamicState extends State<FormDynamicFields> {
               onFocusChange: (focus) {
                 dynamic value = _fieldController.value.text;
                 if (!focus) {
-                  widget.externNode.requestFocus();
+                  //widget.externNode.requestFocus();
                 }
                 if (!focus && widget.showPassArgs) {
                   if (passwordUpperLowerError != 2 ||
@@ -215,6 +220,7 @@ class FormDynamicState extends State<FormDynamicFields> {
                 //   myFocusNode2.requestFocus();
                 // },
                 controller: _fieldController,
+                //focusNode: myFocusNode2,
                 obscureText: showText,
                 onChanged: (value) {
                   //var regExp = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');

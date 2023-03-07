@@ -58,51 +58,55 @@ class _FeedPublishModal extends State<FeedPublishModal> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return AlertDialog(
-      titlePadding: const EdgeInsets.symmetric(vertical: 48, horizontal: 80),
+      titlePadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
       title: StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Container(
+              padding: EdgeInsets.symmetric(vertical: 24,horizontal: 48),
+              width: MediaQuery.of(context).size.width * 0.4,
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Colors.black12,
                 ),
                 borderRadius:  BorderRadius.all(Radius.circular(8)),
               ),
-              margin: const EdgeInsets.all(10.0),
-              padding: const EdgeInsets.symmetric(horizontal: 64,vertical: 32),
-              // alignment: Alignment.topCenter,
               child: Column(
                 children: [
+                  Padding(
+                      padding: EdgeInsets.only(bottom: 8),
+                      child: Row(
+                        children: [
+                          Padding(padding: EdgeInsets.only(right: 8.0),
+                              child: Image.network(
+                                "http://localhost:4040/user/getImage?photo=${userPhoto}",
+                                width: 36,
+                                height: 36,)),
+                          Text(userData.name),
+                          // DropdownButton<String>(
+                          //   value: selectedItem,
+                          //   items: items.map((String item) {
+                          //     return DropdownMenuItem<String>(
+                          //       value: item,
+                          //       child: Text(item),
+                          //     );
+                          //   }) .toList(),
+                          //   onChanged: (String 'newValue') {
+                          //     setState(() {
+                          //       selectedItem = 'newValue';
+                          //     });
+                          //   },
+                          // ),
+
+
+
+                        ],
+                      ),
+                  ),
+
                   Row(
                     children: [
-                      Padding(padding: EdgeInsets.only(right: 8.0),
-                          child: Image.network(
-                            "http://localhost:4040/user/getImage?photo=${userPhoto}",
-                            width: 36,
-                            height: 36,)),
-                      Text(userData.name),
-                      // DropdownButton<String>(
-                      //   value: selectedItem,
-                      //   items: items.map((String item) {
-                      //     return DropdownMenuItem<String>(
-                      //       value: item,
-                      //       child: Text(item),
-                      //     );
-                      //   }) .toList(),
-                      //   onChanged: (String 'newValue') {
-                      //     setState(() {
-                      //       selectedItem = 'newValue';
-                      //     });
-                      //   },
-                      // ),
-
                       Expanded(
                         child: TextFormField(
-                          onTap: () => {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) => FeedPublishModal(userid: widget.userid))
-                          },
                           decoration: const InputDecoration(
                             hintText: 'What do you want to say today?',
                             enabledBorder: OutlineInputBorder(
@@ -116,7 +120,6 @@ class _FeedPublishModal extends State<FeedPublishModal> {
                             contentPadding: EdgeInsets.all(15),
                           ),
                         ),)
-
                     ],
                   ),
                   Container(

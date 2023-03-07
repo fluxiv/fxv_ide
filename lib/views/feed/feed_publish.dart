@@ -48,9 +48,11 @@ class FeedPublishState extends State<FeedPublish>{
                 Expanded(
                   child: TextFormField(
                     onTap: () => {
+                      FocusScope.of(context).unfocus(),
                     showDialog(
                     context: context,
-                    builder: (BuildContext context) => FeedPublishModal(userid: widget.userId))
+                    builder: (BuildContext context) => FeedPublishModal(userid: widget.userId)),
+
                     },
                     decoration: const InputDecoration(
                       hintText: 'What do you want to say today?',

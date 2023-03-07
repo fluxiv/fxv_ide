@@ -12,8 +12,12 @@ class SharedServices{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(key);
   }
-  eraseAndGoTo(context,route){
-    Navigator.pushReplacement(context, route);
+  eraseAndGoTo(context, routeName){
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      routeName,
+          (Route<dynamic> route) => false,
+    );
   }
   goWithParams(context,route,dynamic params){
     Navigator.of(context).popAndPushNamed('/feed',arguments:params);
