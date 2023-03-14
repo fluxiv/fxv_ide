@@ -111,7 +111,7 @@ class _FeedContainerState extends State<FeedContainerState> {
         children: [
           // if(raiseCrop == 1)
           // CropImage(image: image),
-          Expanded(flex: 3, child: Container(color: Colors.red)),
+          Expanded(flex: 3, child: Container(color: Colors.white)),
           Expanded(flex: 4, child: Column(
             children:[
               Visibility(
@@ -121,7 +121,7 @@ class _FeedContainerState extends State<FeedContainerState> {
 
             ]
           )),
-          Expanded(flex: 3, child: Container(color: Colors.red)),
+          Expanded(flex: 3, child: Container(color: Colors.white)),
         ],
       ),
     );
