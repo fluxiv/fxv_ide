@@ -133,6 +133,7 @@ class MyFormState extends State<MyForm> {
     super.initState();
     final controller = context.read<WelcomeController>();
     controller.addListener(() {
+      print('teste234');
       if (controller.state == SignUpState.sucess) {
         Navigator.popAndPushNamed(context, '/terms');
       }
@@ -253,29 +254,30 @@ class MyFormState extends State<MyForm> {
                       child: ElevatedButton(
                         onPressed: _welcomeController.formErrors == -1
                             ? () async {
-                                var finalValues = {};
+                                _welcomeController.signUp();
+                                // var finalValues = {};
                                 // var finalValues = UserModels(name: name, birthday: birthday, email: email, password: password);
                                 //_formKey.currentState?.save(),
-                                for (var value
-                                    in _welcomeController.formValues) {
-                                  if (value.fieldName != 'Repeat password') {
-                                    finalValues[value.fieldName] = value.value;
-                                  }
-                                }
-                                print(finalValues);
-                                var response =
-                                    await UserServices().postUser(finalValues);
-                                print(response);
-                                if (response.statusCode == 201) {
-                                  final body = json.decode(response.body);
-                                  SharedServices().saveString('id', body['id']);
-                                  SharedServices()
-                                      .saveString('token', body['token']);
-                                  if (mounted) {
-                                    Navigator.popAndPushNamed(
-                                        context, '/terms');
-                                  }
-                                }
+                                // for (var value
+                                //     in _welcomeController.formValues) {
+                                //   if (value.fieldName != 'Repeat password') {
+                                //     finalValues[value.fieldName] = value.value;
+                                //   }
+                                // }
+                                // print(finalValues);
+                                // var response =
+                                //     await UserServices().postUser(finalValues);
+                                // print(response);
+                                // if (response.statusCode == 201) {
+                                //   final body = json.decode(response.body);
+                                //   SharedServices().saveString('id', body['id']);
+                                //   SharedServices()
+                                //       .saveString('token', body['token']);
+                                // if (mounted) {
+                                //   Navigator.popAndPushNamed(
+                                //       context, '/terms');
+                                // }
+                                // }
                               }
                             : null,
                         // ignore: sort_child_properties_last

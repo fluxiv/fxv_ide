@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:fxv_ide/src/models/user_models.dart';
-import 'package:fxv_ide/src/modules/feed/feed_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedServices {
-  getShared() async {
-    return await SharedPreferences.getInstance();
-  }
-
   saveString(String key, String value) async {
-    SharedPreferences prefs = await getShared();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(key, value);
   }
 
   getString(String key) async {
-    SharedPreferences prefs = await getShared();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(key);
   }
 
-  eraseAndGoTo(context, route) {
-    Navigator.popAndPushNamed(context, route);
+  eraseAndGoTo(context, routeName) {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      routeName,
+      (Route<dynamic> route) => false,
+    );
   }
 
   goWithParams(context, route, dynamic params) {

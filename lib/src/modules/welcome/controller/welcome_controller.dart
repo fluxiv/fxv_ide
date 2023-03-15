@@ -45,6 +45,7 @@ class WelcomeController extends ChangeNotifier {
         SharedServices().saveString('id', body['id']);
         SharedServices().saveString('token', body['token']);
         state = SignUpState.sucess;
+        notifyListeners();
       }
     } catch (e) {
       print(e);

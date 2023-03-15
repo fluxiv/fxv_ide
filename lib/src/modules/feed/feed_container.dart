@@ -2,12 +2,16 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:fxv_ide/src/modules/feed/widgets/crop_image.dart';
+
 import 'package:fxv_ide/src/models/user_models.dart';
+import 'package:fxv_ide/src/modules/feed/feed_left_side.dart';
+import 'package:fxv_ide/src/modules/feed/feed_publish.dart';
+import 'package:fxv_ide/src/modules/feed/widgets/crop_image.dart';
 import 'package:fxv_ide/src/services/shared_services.dart';
 import 'package:fxv_ide/src/services/user_services.dart';
-import 'package:fxv_ide/src/modules/feed/feed_publish.dart';
+
 import 'package:iconsax/iconsax.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FeedContainer extends StatelessWidget {
   const FeedContainer({super.key});
@@ -46,20 +50,22 @@ class _FeedContainerState extends State<FeedContainerState> {
   }
 
   checkUser() async {
-    String? id = widget.id ?? await SharedServices().getString('id');
-    // final String id = "1";
-    print(id);
+    dynamic id = await SharedServices().getString('id');
     if (id != null && id != '') {
-      userId = id;
+      setState(() {
+        userId = id;
+      });
+      print(userId);
       var response = await UserServices().getUserData(id);
       Map data = jsonDecode(response.body);
       userData = UserModels.fromJson(data["data"][0]);
-      showDialog(
-          context: context,
-          builder: (BuildContext context) => ImageCropper(userData: userData!));
+      // showDialog(
+      //     context: context,
+      //     builder: (BuildContext context) => ImageCropper(userData: userData!));
     } else {
       print('user not logged id');
     }
+    // final String id = "1";
   }
 
   @override
@@ -100,7 +106,10 @@ class _FeedContainerState extends State<FeedContainerState> {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
-                  child: IconButton(onPressed: () => {}, icon: Icon(null)),
+                  child: IconButton(
+                      onPressed: () => {},
+                      icon: Image.network(
+                          'http://localhost:4040/user/getImage?photo=${userPhoto}')),
                 ),
               ],
             )
@@ -109,15 +118,16 @@ class _FeedContainerState extends State<FeedContainerState> {
         children: [
           // if(raiseCrop == 1)
           // CropImage(image: image),
-          Expanded(flex: 3, child: Container(color: Colors.red)),
+          Expanded(flex: 3, child: FeedLeftSide()),
           Expanded(
               flex: 4,
               child: Column(children: [
                 Visibility(
                   child: FeedPublish(userId: userId),
+                  visible: userId != '',
                 )
               ])),
-          Expanded(flex: 3, child: Container(color: Colors.red)),
+          Expanded(flex: 3, child: Container(color: Colors.white)),
         ],
       ),
     );
