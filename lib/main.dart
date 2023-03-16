@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fxv_ide/src/modules/feed/controllers/feed_controller.dart';
 import 'package:fxv_ide/src/modules/feed/feed_container.dart';
 import 'package:fxv_ide/src/modules/terms/terms.dart';
 import 'package:fxv_ide/src/modules/welcome/controller/welcome_controller.dart';
@@ -17,7 +18,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => WelcomeController())],
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => WelcomeController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FeedController(),
+        )
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Fluxiv space',

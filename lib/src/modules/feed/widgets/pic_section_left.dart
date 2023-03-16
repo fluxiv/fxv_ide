@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fxv_ide/src/modules/feed/controllers/feed_controller.dart';
+import 'package:provider/provider.dart';
 
 class PicSection extends StatelessWidget {
   const PicSection({super.key});
@@ -13,6 +15,7 @@ class PicSection extends StatelessWidget {
       {"name": "Design", "icon": Icons.add_chart_outlined},
       {"name": "Dev", "icon": Icons.devices_rounded},
     ];
+    final _feedController = context.watch<FeedController>();
 
     return Container(
       clipBehavior: Clip.hardEdge,
@@ -84,22 +87,38 @@ class PicSection extends StatelessWidget {
           Expanded(
             child: ListView.separated(
                 itemBuilder: (context, index) {
+                  _feedController.createHovers();
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
-                    child: Row(
-                      children: [
-                        Icon(listItems[index]["icon"]),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                          child: Text(
-                            listItems[index]["name"],
-                            // textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                    child: InkWell(
+                      onTap: () {
+                        print('testeboladooooo');
+                      },
+                      onHover: (value) {
+                        _feedController.onHover(index, value);
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            listItems[index]["icon"],
+                            color: _feedController.hovers[index]["hover"]
+                                ? Colors.blue
+                                : Colors.black,
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                            child: Text(
+                              listItems[index]["name"],
+                              // textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: _feedController.hovers[index]["hover"]
+                                      ? Colors.blue
+                                      : Colors.black),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
