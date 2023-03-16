@@ -7,6 +7,7 @@ import 'package:fxv_ide/src/models/user_models.dart';
 import 'package:fxv_ide/src/modules/feed/feed_left_side.dart';
 import 'package:fxv_ide/src/modules/feed/feed_publish.dart';
 import 'package:fxv_ide/src/modules/feed/widgets/crop_image.dart';
+import 'package:fxv_ide/src/modules/feed/widgets/feed_post.dart';
 import 'package:fxv_ide/src/services/shared_services.dart';
 import 'package:fxv_ide/src/services/user_services.dart';
 
@@ -120,13 +121,17 @@ class _FeedContainerState extends State<FeedContainerState> {
           // CropImage(image: image),
           Expanded(flex: 3, child: FeedLeftSide()),
           Expanded(
-              flex: 4,
-              child: Column(children: [
+            flex: 4,
+            child: Column(
+              children: [
                 Visibility(
                   child: FeedPublish(userId: userId),
                   visible: userId != '',
-                )
-              ])),
+                ),
+                FeedPost(),
+              ],
+            ),
+          ),
           Expanded(flex: 3, child: Container(color: Colors.white)),
         ],
       ),
