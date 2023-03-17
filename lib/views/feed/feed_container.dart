@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:fxv_ide/components/crop_image.dart';
+import 'package:fxv_ide/components/crop/crop_image.dart';
 import 'package:fxv_ide/models/user_models.dart';
 import 'package:fxv_ide/services/shared_services.dart';
 import 'package:fxv_ide/services/user_services.dart';

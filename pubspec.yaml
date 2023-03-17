@@ -39,12 +39,12 @@ dependencies:
   mask_text_input_formatter: ^2.4.0
   http: ^0.13.5
   shared_preferences: ^2.0.15
-  crop_your_image: ^0.7.3
   dotted_border: ^2.0.0+3
   file_picker: ^5.2.3
   iconsax: ^0.0.8
   flutter_easyloading: ^3.0.5
-  image_cropping: ^0.0.13
+  provider: ^6.0.5
+  cropperx: ^1.1.1
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:cropperx/cropperx.dart';
+import 'package:fxv_ide/components/crop/crop_control.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:crop_your_image/crop_your_image.dart';
+//import 'package:crop_your_image/crop_your_image.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:fxv_ide/services/shared_services.dart';
 import 'package:fxv_ide/models/user_models.dart';
@@ -23,11 +27,29 @@ class ImageCropper extends StatefulWidget {
 }
 
 class _ImageCropper extends State<ImageCropper> {
+
   int raiseCrop = 0;
-  bool progress = false;
-  dynamic image = Uint8List.fromList([255, 0, 0, 255, 0, 0, 255]);
   String? filename;
-  final _cropperKey = CropController();
+  dynamic image = Uint8List.fromList([255, 0, 0, 255, 0, 0, 255]);
+  final _cropperKey = GlobalKey(debugLabel: 'cropperKey');
+  void cropRaiser () async  {
+    //print('eu roodo nesse porra?!');
+    FilePickerResult? result = await FilePicker
+        .platform
+        .pickFiles(type: FileType.image);
+    if (result != null) {
+      filename = result.files.single.name;
+      setState(() {
+        image = result.files.first.bytes!;
+        raiseCrop = 1;
+      });
+    } else {
+      setState(() {
+        raiseCrop = 0;
+      });
+    }
+  }
+  //final _cropperKey = CropController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,34 +80,8 @@ class _ImageCropper extends State<ImageCropper> {
                             strokeWidth: 4,
                             child: Center(
                               child: TextButton(
-                                onPressed: () async {
-                                  setState(() {
-                                    progress = true;
-                                  });
-
-                                  FilePickerResult? result = await FilePicker
-                                      .platform
-                                      .pickFiles(type: FileType.image);
-                                  if (result != null) {
-                                    //image = File(result.files.first.path!);
-                                    // image = result.files.first.bytes!;
-                                    filename = result.files.single.name;
-                                    //CropImage(image: image);
-                                    setState(() {
-                                      image = result.files.first.bytes!;
-                                    });
-                                    Future.delayed(Duration(seconds: 4), () {
-                                      setState(() {
-                                        raiseCrop = 1;
-                                      });
-                                    });
-                                  }
-                                },
-                                child: progress
-                                    ? const CircularProgressIndicator(
-                                  color: Colors.black,
-                                )
-                                    : const Icon(
+                                onPressed: cropRaiser,
+                                child: const Icon(
                                   Icons.add_a_photo,
                                   size: 64,
                                   color: Color(0xffc4c4c4),
@@ -107,6 +103,10 @@ class _ImageCropper extends State<ImageCropper> {
                     ],
                   ))
               ,
+
+              //RAISE 1 HERE
+
+
               Visibility(
                 visible: raiseCrop == 1 ? true : false,
                   child: Column(
@@ -116,21 +116,10 @@ class _ImageCropper extends State<ImageCropper> {
                         child: SizedBox(
                           width: 160,
                           height: 160,
-                          child: Crop(
-                            controller: _cropperKey,
-                            image: image,
-                            aspectRatio: 1.0,
-                            cornerDotBuilder: (size, edgeAlignment) =>
-                            const DotControl(color: Colors.blue),
-                            onCropped: (img) async {
-                              var response = await UserServices()
-                                  .saveProfilePicture(
-                                  widget.userData.id, img, filename);
-                              if (response.statusCode == 201 && mounted) {
-                                Navigator.pop(context, 'img');
-                              }
-                            },
-                          ),
+                          child: Cropper(
+                            cropperKey: _cropperKey,
+                            image: Image.memory(image)
+                          )
                         ),
                       ),
                       Padding(
@@ -155,7 +144,7 @@ class _ImageCropper extends State<ImageCropper> {
                                 },
                                 child: const Text('Pick another one')),
                             ElevatedButton(
-                                onPressed: _cropperKey.crop,
+                                onPressed: cropImage,
                                 child: const Text('Save image'))
                           ],
                         ),
@@ -167,4 +156,12 @@ class _ImageCropper extends State<ImageCropper> {
         ),
     );
   }
+
+  void cropImage() async {
+    final imageBytes = await Cropper.crop(
+      cropperKey: _cropperKey, // Reference it through the key
+    );
+    print(imageBytes);
+  }
+
 }
