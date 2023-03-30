@@ -124,11 +124,24 @@ class _FeedContainerState extends State<FeedContainerState> {
             flex: 4,
             child: Column(
               children: [
-                Visibility(
-                  child: FeedPublish(userId: userId),
-                  visible: userId != '',
-                ),
-                FeedPost(),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.9,
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context)
+                        .copyWith(scrollbars: false),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Visibility(
+                            child: FeedPublish(userId: userId),
+                            visible: userId != '',
+                          ),
+                          FeedPost(),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),

@@ -74,13 +74,87 @@ class FeedPost extends StatelessWidget {
               ],
             ),
           ),
-          Divider(
+          const Divider(
             height: 1,
             color: Colors.black12,
           ),
           Container(
             // color: Colors.blue,
-            height: 50,
+            height: 250,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 255, 255, 255),
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage('assets/background/porsche.webp')),
+            ),
+          ),
+          Container(
+            // color: Colors.blue,
+            height: 180,
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.center,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.35,
+              // color: Colors.black,
+              alignment: Alignment.topCenter,
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    color: Colors.white,
+                    height: 50,
+                    child: Center(
+                      child: GridView(
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          crossAxisSpacing: 10,
+                          childAspectRatio: 5,
+                        ),
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(8),
+                              ),
+                              color: Color.fromARGB(255, 209, 209, 209),
+                            ),
+                            child: Text('# Idea'),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(8),
+                              ),
+                              color: Color.fromARGB(255, 209, 209, 209),
+                            ),
+                            child: Text('# Fluxiv Pixon'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 130,
+                    // color: Colors.green,
+                    alignment: Alignment.center,
+                    child: const ListTile(
+                      title: Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                        child: Text('Titulo 1'),
+                      ),
+                      titleTextStyle:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      subtitle: Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus egestas arcu, ultricies in in lacinia odio. Augue blandit tortor suspendisse eu pharetra felis bibendum turpis. Magna volutpat euismod sagittis ut. Lectus ...'),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         ],
       ),

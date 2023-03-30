@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'dart:typed_data';
-import 'package:flutter/material.dart';
 import 'package:fxv_ide/src/models/user_models.dart';
 import 'package:fxv_ide/src/services/user_services.dart';
 import 'package:iconsax/iconsax.dart';
