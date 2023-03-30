@@ -14,6 +14,8 @@ import 'package:fxv_ide/src/services/user_services.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'feed_right_side.dart';
+
 class FeedContainer extends StatelessWidget {
   const FeedContainer({super.key});
 
@@ -121,31 +123,34 @@ class _FeedContainerState extends State<FeedContainerState> {
           // CropImage(image: image),
           Expanded(flex: 3, child: FeedLeftSide()),
           Expanded(
-            flex: 4,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.9,
-                  child: ScrollConfiguration(
-                    behavior: ScrollConfiguration.of(context)
-                        .copyWith(scrollbars: false),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Visibility(
-                            child: FeedPublish(userId: userId),
-                            visible: userId != '',
-                          ),
-                          FeedPost(),
-                        ],
+            flex: 6,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 0,horizontal: 12),
+              child:  Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.9,
+                    child: ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Visibility(
+                              child: FeedPublish(userId: userId),
+                              visible: userId != '',
+                            ),
+                            FeedPost(),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                )
-              ],
-            ),
+                  )
+                ],
+              ),
+            )
           ),
-          Expanded(flex: 3, child: Container(color: Colors.white)),
+          Expanded(flex: 3, child: FeedRightSide()),
         ],
       ),
     );

@@ -7,6 +7,7 @@ import 'package:fxv_ide/src/models/user_models.dart';
 import 'package:fxv_ide/src/modules/welcome/widgets/form_dynamic_fields.dart';
 import 'package:fxv_ide/src/services/shared_services.dart';
 import 'package:fxv_ide/src/services/user_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginIntent extends Intent {}
 

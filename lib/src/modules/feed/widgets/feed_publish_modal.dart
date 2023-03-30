@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
-import 'package:crop_your_image/crop_your_image.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';

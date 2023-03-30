@@ -40,7 +40,7 @@ class FeedPost extends StatelessWidget {
                 Container(
                   // color: Colors.green,
                   width: 315,
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -144,10 +144,8 @@ class FeedPost extends StatelessWidget {
                     child: const ListTile(
                       title: Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                        child: Text('Titulo 1'),
+                        child: Text('Titulo 1',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                       ),
-                      titleTextStyle:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                       subtitle: Text(
                           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus egestas arcu, ultricies in in lacinia odio. Augue blandit tortor suspendisse eu pharetra felis bibendum turpis. Magna volutpat euismod sagittis ut. Lectus ...'),
                     ),
