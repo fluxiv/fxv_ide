@@ -3,11 +3,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fxv_ide/components/form_dynamic_fields.dart';
-import 'package:fxv_ide/models/user_models.dart';
-import 'package:fxv_ide/services/shared_services.dart';
-import 'package:fxv_ide/services/user_services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fxv_ide/src/models/user_models.dart';
+import 'package:fxv_ide/src/modules/welcome/widgets/form_dynamic_fields.dart';
+import 'package:fxv_ide/src/services/shared_services.dart';
+import 'package:fxv_ide/src/services/user_services.dart';
 
 class LoginIntent extends Intent {}
 
@@ -130,7 +129,7 @@ class _MyFormLoginState extends State<MyFormLogin> {
         }
       } else {
         if (mounted) {
-          SharedServices().goWithParams(context, '/feed',userModels.id);
+          SharedServices().goWithParams(context, '/feed', userModels.id);
         }
       }
 
@@ -138,6 +137,7 @@ class _MyFormLoginState extends State<MyFormLogin> {
       // await prefs.setString('token', response.body['token']);
     } else {
       final body = json.decode(response.body);
+      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
